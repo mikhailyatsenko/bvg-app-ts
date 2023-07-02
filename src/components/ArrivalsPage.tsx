@@ -19,10 +19,10 @@ const ArrivalsPage: React.FC<{
             </div>
             {arrivals[Object.keys(arrivals)[0]].map((arrival, index) => (
               <div className="arrivals__line" key={index}>
-                <div className="arrivals__item">{arrival.time.slice(11, 16)}</div>
                 <div className="arrivals__item">{arrival.type}</div>
                 <div className="arrivals__item">{arrival.routeNumber}</div>
                 <div className="arrivals__item">{arrival.destination}</div>
+                <div className="arrivals__item">{arrival.time.slice(11, 16)}</div>
               </div>
             ))}
           </div>
