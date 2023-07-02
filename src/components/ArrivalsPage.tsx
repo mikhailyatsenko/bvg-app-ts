@@ -12,10 +12,10 @@ const ArrivalsPage: React.FC<{
         {arrivals[Object.keys(arrivals)[0]].length ? (
           <div className="arrivals">
             <div className="arrivals__line">
-              <div className="arrivals__item">Arrival time</div>
               <div className="arrivals__item">Type</div>
               <div className="arrivals__item">Route number</div>
               <div className="arrivals__item">Destination</div>
+              <div className="arrivals__item">Arrival time</div>
             </div>
             {arrivals[Object.keys(arrivals)[0]].map((arrival, index) => (
               <div className="arrivals__line" key={index}>
