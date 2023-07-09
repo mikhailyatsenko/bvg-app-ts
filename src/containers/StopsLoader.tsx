@@ -92,6 +92,20 @@ const StopsLoader: React.FC = () => {
     }
   }, [selectedStop, filteredPeriod]);
 
+  const minutesToArrival = (arrivalTime: string): string => {
+    let arrival: Date = new Date(arrivalTime);
+    let now: Date = new Date();
+    let difference = Math.floor((arrival.getTime() - now.getTime()) / (1000 * 60));
+
+    if (difference > 0) {
+      return difference + " min";
+    } else if (difference === 0 || difference === -1) {
+      return "now";
+    } else return "gone";
+
+    // difference > 0 ? difference + " min" : "now";
+  };
+
   const changeTransport = (transport: string): void => {
     console.log(transport);
     if (transport === "all") {
@@ -154,7 +168,7 @@ const StopsLoader: React.FC = () => {
         />
       ) : (
         <>
-          <ArrivalsPage arrivals={filteredArrivals || arrivals} />
+          <ArrivalsPage arrivals={filteredArrivals || arrivals} minutesToArrival={minutesToArrival} />
           <AddToFavorites addToFav={addToFav} checkIsStopInFav={checkIsStopInFav} isStopInFav={isStopInFav} />
         </>
       )}

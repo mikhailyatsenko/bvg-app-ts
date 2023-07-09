@@ -12,4 +12,6 @@ export type ArivalsType = {
   provenance: string;
 }[];
 
-export type NormalizedArrivalType = { [key: string]: { type: string; time: string; routeNumber: string; destination: string }[] };
+export type NormalizedArrivalType = {
+  [key: string]: { type: string; time: string; routeNumber: string; destination: string }[];
+};

@@ -21,18 +21,18 @@ const ListOfStopsOnPage: React.FC<StopsOnPageProps> = ({
   return (
     <div className="stops-list">
       {stops.map((stop: StopType) => (
-        <div className="stops-list__item" key={stop.id} onClick={() => selectStop(stop.id, stop.name)}>
+        <div className="btn btn--velvet" key={stop.id} onClick={() => selectStop(stop.id, stop.name)}>
           {stop.name}
         </div>
       ))}
       {!searchInputValue && Boolean(favoriteStops.length) && (
         <div className="stops-list__fav-description fav-descr">
-          <div className="fav-descr__text">This is your favorites stops. Need another stop arrivals? Start type name of the stop</div>
-          <div className="fav-descr__text" onClick={removeAllFavoritesStops}>
+          <div className="fav-descr__text">This is your favorites stops.</div>
+          <div className="fav-descr__text">Need another stop? Start type name of the stop or</div>
+          <button className="btn btn--red" onClick={removeAllFavoritesStops}>
             <span className="material-symbols-outlined">delete_forever</span>
-            <br />
             Remove all favorites stops
-          </div>
+          </button>
         </div>
       )}
     </div>
