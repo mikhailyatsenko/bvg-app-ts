@@ -18,6 +18,7 @@ const StopsLoader: React.FC = () => {
   const [favoriteStops, setFavoriteStops] = useState(JSON.parse(localStorage.getItem("favStops") || "[]"));
   const [isStopInFav, setIsStopInFav] = useState<boolean>(false);
   const [stopIndexInfav, setStopIndexInfav] = useState<number | null>(null);
+  const [beIn, setBeIn] = useState<string[]>([]);
 
   const stopsToRender = stopsList
     .filter((stop) => {
@@ -47,63 +48,79 @@ const StopsLoader: React.FC = () => {
         let data = await response.json();
         normalizeArrivals(data.arrivals);
       };
-
-      const normalizeArrivals = (arrivalsData: ArivalsType) => {
-        if (selectedStop.id) {
-          console.log(arrivalsData);
-          const normalizedArrivals: NormalizedArrivalType = { [selectedStop.name]: [] };
-
-          let arrivalType: string;
-          arrivalsData.forEach((arrival) => {
-            switch (arrival.line.product) {
-              case "suburban":
-                arrivalType = "S-Bahn";
-                break;
-              case "subway":
-                arrivalType = "U-Bahn";
-                break;
-              case "bus":
-                arrivalType = "Bus";
-                break;
-              case "tram":
-                arrivalType = "Tram";
-                break;
-              case "express":
-              case "regional":
-                arrivalType = "Regional";
-                break;
-            }
-
-            normalizedArrivals[selectedStop.name].push({
-              type: arrivalType,
-              time: arrival.when || arrival.plannedWhen,
-              routeNumber: arrival.line.name,
-              destination: arrival.provenance,
-            });
-          });
-
-          setArrivals(normalizedArrivals);
-
-          setIsloading(false);
-        }
-      };
-
       arrivalsLoad();
     }
+    const normalizeArrivals = (arrivalsData: ArivalsType) => {
+      if (selectedStop.id) {
+        console.log(arrivalsData);
+        const normalizedArrivals: NormalizedArrivalType = { [selectedStop.name]: [] };
+
+        let arrivalType: string;
+        arrivalsData.forEach((arrival) => {
+          switch (arrival.line.product) {
+            case "suburban":
+              arrivalType = "S-Bahn";
+              break;
+            case "subway":
+              arrivalType = "U-Bahn";
+              break;
+            case "bus":
+              arrivalType = "Bus";
+              break;
+            case "tram":
+              arrivalType = "Tram";
+              break;
+            case "express":
+            case "regional":
+              arrivalType = "Regional";
+              break;
+          }
+
+          // setArrivals((prev) => {});
+
+          normalizedArrivals[selectedStop.name].push({
+            type: arrivalType,
+            time: arrival.when || arrival.plannedWhen,
+            routeNumber: arrival.line.name,
+            destination: arrival.provenance,
+          });
+        });
+
+        setArrivals(normalizedArrivals);
+
+        setIsloading(false);
+      }
+    };
   }, [selectedStop, filteredPeriod]);
+
+  useEffect(() => {
+    if (arrivals[selectedStop.name] !== undefined) {
+      setBeIn([]);
+      arrivals[selectedStop.name].forEach((arrival) => {
+        setBeIn((prev) => [...prev, minutesToArrival(arrival.time)]);
+      });
+
+      const interval: NodeJS.Timer = setInterval(() => {
+        setBeIn([]);
+        arrivals[selectedStop.name].forEach((arrival) => {
+          setBeIn((prev) => [...prev, minutesToArrival(arrival.time)]);
+        });
+      }, 10000);
+      return () => clearInterval(interval);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [arrivals]);
 
   const minutesToArrival = (arrivalTime: string): string => {
     let arrival: Date = new Date(arrivalTime);
     let now: Date = new Date();
-    let difference = Math.floor((arrival.getTime() - now.getTime()) / (1000 * 60));
+    let difference = Math.round((arrival.getTime() - now.getTime()) / (1000 * 60));
 
     if (difference > 0) {
-      return difference + " min";
-    } else if (difference === 0 || difference === -1) {
-      return "now";
-    } else return "gone";
-
-    // difference > 0 ? difference + " min" : "now";
+      return `~ ${difference} min`;
+    } else if (difference < 0) {
+      return "gone";
+    } else return "now";
   };
 
   const changeTransport = (transport: string): void => {
@@ -168,7 +185,7 @@ const StopsLoader: React.FC = () => {
         />
       ) : (
         <>
-          <ArrivalsPage arrivals={filteredArrivals || arrivals} minutesToArrival={minutesToArrival} />
+          <ArrivalsPage arrivals={filteredArrivals || arrivals} beIn={beIn} />
           <AddToFavorites addToFav={addToFav} checkIsStopInFav={checkIsStopInFav} isStopInFav={isStopInFav} />
         </>
       )}

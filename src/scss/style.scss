@@ -155,15 +155,13 @@ main {
 
 // Spinner
 .lds-dual-ring {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
+  display: block;
   &:after {
     content: " ";
     display: block;
+    margin: 0 auto;
     width: 28px;
     height: 28px;
-    margin: 8px;
     border-radius: 50%;
     border: 6px solid #ffee00;
     border-color: #ffee00 transparent #ffee00 transparent;

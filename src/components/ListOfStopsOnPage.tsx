@@ -28,7 +28,9 @@ const ListOfStopsOnPage: React.FC<StopsOnPageProps> = ({
       {!searchInputValue && Boolean(favoriteStops.length) && (
         <div className="stops-list__fav-description fav-descr">
           <div className="fav-descr__text">This is your favorites stops.</div>
-          <div className="fav-descr__text">Need another stop? Start type name of the stop or</div>
+          <div className="fav-descr__text">
+            <i>Need another stop? Start type name of the stop or</i>
+          </div>
           <button className="btn btn--red" onClick={removeAllFavoritesStops}>
             <span className="material-symbols-outlined">delete_forever</span>
             Remove all favorites stops
