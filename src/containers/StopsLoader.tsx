@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import ListOfStopsOnPage from "../components/ListOfStopsOnPage";
 import ArrivalsPage from "../components/ArrivalsPage";
 import SearchStop from "../components/SearchStop";
-import ChangeFilters from "../components/ChangeFilters";
 import AddToFavorites from "../components/AddToFavorites";
 import _stopsList from "../stopsList.json";
-import { StopType, ArivalsType, NormalizedArrivalType } from "../types";
+import { StopType, ArivalsType, NormalizedArrivalType, Filters } from "../types";
 
 const StopsLoader: React.FC = () => {
   const stopsList = _stopsList as StopType[];
@@ -19,6 +18,8 @@ const StopsLoader: React.FC = () => {
   const [isStopInFav, setIsStopInFav] = useState<boolean>(false);
   const [stopIndexInfav, setStopIndexInfav] = useState<number | null>(null);
   const [beIn, setBeIn] = useState<string[]>([]);
+  const [filters, setFilters] = useState<Filters>({ type: "", routeNumber: "", destination: "", time: "" });
+  const [parametrsToFilterArrival, setParametrsToFilterArrival] = useState<string[][]>([[], [], []]);
 
   const stopsToRender = stopsList
     .filter((stop) => {
@@ -76,8 +77,6 @@ const StopsLoader: React.FC = () => {
               break;
           }
 
-          // setArrivals((prev) => {});
-
           normalizedArrivals[selectedStop.name].push({
             type: arrivalType,
             time: arrival.when || arrival.plannedWhen,
@@ -96,20 +95,67 @@ const StopsLoader: React.FC = () => {
   useEffect(() => {
     if (arrivals[selectedStop.name] !== undefined) {
       setBeIn([]);
-      arrivals[selectedStop.name].forEach((arrival) => {
+      (filteredArrivals || arrivals)[selectedStop.name].forEach((arrival) => {
         setBeIn((prev) => [...prev, minutesToArrival(arrival.time)]);
       });
 
       const interval: NodeJS.Timer = setInterval(() => {
         setBeIn([]);
-        arrivals[selectedStop.name].forEach((arrival) => {
+        (filteredArrivals || arrivals)[selectedStop.name].forEach((arrival) => {
           setBeIn((prev) => [...prev, minutesToArrival(arrival.time)]);
         });
       }, 10000);
       return () => clearInterval(interval);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [arrivals]);
+  }, [arrivals, filteredArrivals]);
+
+  useEffect(() => {
+    if (arrivals[selectedStop.name]) {
+      setParametrsToFilterArrival([]);
+      if (!filters.type && !filters.routeNumber && !filters.destination) {
+        setFilteredArrivals(null);
+      } else {
+        setFilteredArrivals({
+          [selectedStop.name]: arrivals[selectedStop.name]
+            .filter((arrival) => arrival.type === (filters.type || arrival.type))
+            .filter((arrival) => arrival.routeNumber === (filters.routeNumber || arrival.routeNumber))
+            .filter((arrival) => arrival.destination === (filters.destination || arrival.destination)),
+        });
+      }
+
+      //set filterss un state
+
+      const generateParametrsToFilterArrival = (filterBy: string) => {
+        return (filteredArrivals || arrivals)[selectedStop.name].reduce((parametersAccum, currentArrival) => {
+          if (!parametersAccum.includes(currentArrival[filterBy as keyof typeof currentArrival])) {
+            return [...parametersAccum, currentArrival[filterBy as keyof typeof currentArrival]];
+          } else return parametersAccum;
+        }, [] as string[]);
+      };
+
+      ["type", "routeNumber", "destination"].forEach((filterBy) => {
+        setParametrsToFilterArrival((prev) => [...prev, generateParametrsToFilterArrival(filterBy)]);
+        console.log(parametrsToFilterArrival);
+      });
+    }
+  }, [filters, arrivals, selectedStop]);
+
+  useEffect(() => {
+    setFilters({ type: "", routeNumber: "", destination: "", time: "" });
+
+    const checkIsStopInFav = (): void => {
+      for (let i = 0; i < favoriteStops.length; i++) {
+        if (favoriteStops[i].id === selectedStop.id) {
+          setIsStopInFav(true);
+          setStopIndexInfav(i);
+          return;
+        }
+      }
+      setIsStopInFav(false);
+    };
+    checkIsStopInFav();
+  }, [selectedStop]);
 
   const minutesToArrival = (arrivalTime: string): string => {
     let arrival: Date = new Date(arrivalTime);
@@ -123,28 +169,22 @@ const StopsLoader: React.FC = () => {
     } else return "now";
   };
 
-  const changeTransport = (transport: string): void => {
-    console.log(transport);
-    if (transport === "all") {
-      setFilteredArrivals(null);
-    } else {
-      setFilteredArrivals({ [selectedStop.name]: arrivals[selectedStop.name].filter((arrival) => arrival.type === transport) });
-    }
-  };
-
   const changePeriod = (period: string): void => {
     setFilteredPeriod(period);
-    console.log(filteredPeriod);
   };
 
-  const checkIsStopInFav = (): void => {
-    console.log("cheking");
-    for (let i = 0; i < favoriteStops.length; i++) {
-      if (favoriteStops[i].id === selectedStop.id) {
-        setIsStopInFav(true);
-        setStopIndexInfav(i);
-      }
-    }
+  // const getParametrsToFilterArrival = (filterBy: string): string[] => {
+
+  //     return (filteredArrivals || arrivals)[selectedStop.name].reduce((parametersAccum, currentArrival) => {
+  //       if (!parametersAccum.includes(currentArrival[filterBy as keyof typeof currentArrival])) {
+  //         return [...parametersAccum, currentArrival[filterBy as keyof typeof currentArrival]];
+  //       } else return parametersAccum;
+  //     }, [] as string[]);
+
+  // };
+
+  const changeArrivalsFilter = (filterType: string, filterBy: string): void => {
+    setFilters({ ...filters, [filterType]: filterBy });
   };
 
   const addToFav = (): void => {
@@ -172,7 +212,6 @@ const StopsLoader: React.FC = () => {
   return (
     <main>
       <SearchStop updateSearchInput={updateSearchInput} searchInputValue={searchInputValue} selectedStop={selectedStop} />
-      {arrivals[Object.keys(arrivals)[0]] && <ChangeFilters changeTransport={changeTransport} changePeriod={changePeriod} />}
       {isLoading ? (
         <div className="lds-dual-ring"></div>
       ) : !arrivals[Object.keys(arrivals)[0]] ? (
@@ -185,8 +224,16 @@ const StopsLoader: React.FC = () => {
         />
       ) : (
         <>
-          <ArrivalsPage arrivals={filteredArrivals || arrivals} beIn={beIn} />
-          <AddToFavorites addToFav={addToFav} checkIsStopInFav={checkIsStopInFav} isStopInFav={isStopInFav} />
+          <ArrivalsPage
+            arrivals={filteredArrivals || arrivals}
+            beIn={beIn}
+            parametrsToFilterArrival={parametrsToFilterArrival}
+            changeArrivalsFilter={changeArrivalsFilter}
+            filters={filters}
+            changePeriod={changePeriod}
+            filteredPeriod={filteredPeriod}
+          />
+          <AddToFavorites addToFav={addToFav} isStopInFav={isStopInFav} />
         </>
       )}
     </main>

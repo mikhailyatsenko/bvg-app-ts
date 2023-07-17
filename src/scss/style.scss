@@ -17,8 +17,10 @@ main {
   select {
     padding: 5px;
     border: 0;
+    // margin: 10px;
+  }
+  input {
     border-bottom: 1px solid black;
-    margin: 10px;
   }
   h2 {
     text-align: center;

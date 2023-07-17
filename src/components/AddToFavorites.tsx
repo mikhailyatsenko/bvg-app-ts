@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 
-const AddToFavorites: React.FC<{ addToFav: () => void; checkIsStopInFav: () => void; isStopInFav: boolean }> = ({
+const AddToFavorites: React.FC<{ addToFav: () => void; isStopInFav: boolean }> = ({
   addToFav,
-  checkIsStopInFav,
+  // checkIsStopInFav,
   isStopInFav,
 }) => {
-  useEffect(() => {
-    checkIsStopInFav();
-  }, []);
+  console.log(isStopInFav);
   return (
     <div className="arrivals-section__add-to-fav drop-fav" onClick={() => addToFav()}>
       <div className={isStopInFav ? "material-symbols-outlined fav filled animate" : "material-symbols-outlined fav"}>favorite</div>

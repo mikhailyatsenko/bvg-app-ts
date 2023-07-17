@@ -1,12 +1,18 @@
 import React from "react";
-import { NormalizedArrivalType } from "../types";
+import FiltersOnArrivalPage from "./FiltersOnArrivalPage";
+import { NormalizedArrivalType, Filters } from "../types";
 
 const ArrivalsPage: React.FC<{
   arrivals: NormalizedArrivalType;
   beIn: string[];
-}> = ({ arrivals, beIn }) => {
+  parametrsToFilterArrival: string[][];
+  changeArrivalsFilter: (filterType: string, filterBy: string) => void;
+  filters: Filters;
+  changePeriod: (period: string) => void;
+  filteredPeriod: string;
+}> = ({ arrivals, beIn, parametrsToFilterArrival, changeArrivalsFilter, changePeriod, filters, filteredPeriod }) => {
   const arrivalsArray = arrivals[Object.keys(arrivals)[0]];
-  // const uniqueParameterArray = ()
+
   return (
     <>
       <div className="arrivals-section">
@@ -15,24 +21,20 @@ const ArrivalsPage: React.FC<{
         {arrivals[Object.keys(arrivals)[0]].length ? (
           <div className="arrivals">
             <div className="arrivals__line">
-              <div className="arrivals__item">Type</div>
-              {/* <select className="arrivals-filters__transport">
-                <option value="all">All types of transport</option>
-                {Array.from(new Set(arrivalsArray)).map((arrival, index) => (
-                  <option value={arrival.type}>{arrival.type}</option>
-                ))}
-                <option value="all">All types of transport</option>
-                <option value="S-Bahn">S-bahn</option>
-                <option value="U-Bahn">U-bahn</option>
-                <option value="Bus">Bus</option>
-                <option value="Tram">Tram</option>
-                <option value="Regional">Regional</option>
-              </select> */}
+              <div className="arrivals__item">Type of transport</div>
               <div className="arrivals__item">Route number</div>
               <div className="arrivals__item">Destination</div>
               <div className="arrivals__item">Arrival time</div>
               <div className="arrivals__item">Be in</div>
             </div>
+
+            <FiltersOnArrivalPage
+              parametrsToFilterArrival={parametrsToFilterArrival}
+              changeArrivalsFilter={changeArrivalsFilter}
+              changePeriod={changePeriod}
+              filters={filters}
+              filteredPeriod={filteredPeriod}
+            />
             {arrivalsArray.map((arrival, index) => (
               <div className="arrivals__line" key={index}>
                 <div className="arrivals__item">{arrival.type}</div>
