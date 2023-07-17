@@ -34,7 +34,6 @@ const StopsLoader: React.FC = () => {
 
   const selectStop = (id: string, name: string): void => {
     setSearchInputValue("");
-    console.log("selected id", id);
     setSelectedStop({ id: id, name: name });
   };
 
@@ -42,9 +41,7 @@ const StopsLoader: React.FC = () => {
     if (selectedStop.id) {
       const arrivalsLoad = async () => {
         setIsloading(true);
-        console.log(isLoading);
 
-        console.log(selectedStop);
         let response = await fetch(`https://v6.bvg.transport.rest/stops/${selectedStop.id}/arrivals?duration=${filteredPeriod}`);
         let data = await response.json();
         normalizeArrivals(data.arrivals);
@@ -53,7 +50,6 @@ const StopsLoader: React.FC = () => {
     }
     const normalizeArrivals = (arrivalsData: ArivalsType) => {
       if (selectedStop.id) {
-        console.log(arrivalsData);
         const normalizedArrivals: NormalizedArrivalType = { [selectedStop.name]: [] };
 
         let arrivalType: string;
@@ -111,8 +107,8 @@ const StopsLoader: React.FC = () => {
   }, [arrivals, filteredArrivals]);
 
   useEffect(() => {
+    console.log("arrivals[selectedStop.name]", arrivals[selectedStop.name]);
     if (arrivals[selectedStop.name]) {
-      setParametrsToFilterArrival([]);
       if (!filters.type && !filters.routeNumber && !filters.destination) {
         setFilteredArrivals(null);
       } else {
@@ -123,23 +119,8 @@ const StopsLoader: React.FC = () => {
             .filter((arrival) => arrival.destination === (filters.destination || arrival.destination)),
         });
       }
-
-      //set filterss un state
-
-      const generateParametrsToFilterArrival = (filterBy: string) => {
-        return (filteredArrivals || arrivals)[selectedStop.name].reduce((parametersAccum, currentArrival) => {
-          if (!parametersAccum.includes(currentArrival[filterBy as keyof typeof currentArrival])) {
-            return [...parametersAccum, currentArrival[filterBy as keyof typeof currentArrival]];
-          } else return parametersAccum;
-        }, [] as string[]);
-      };
-
-      ["type", "routeNumber", "destination"].forEach((filterBy) => {
-        setParametrsToFilterArrival((prev) => [...prev, generateParametrsToFilterArrival(filterBy)]);
-        console.log(parametrsToFilterArrival);
-      });
     }
-  }, [filters, arrivals, selectedStop]);
+  }, [filters, arrivals]);
 
   useEffect(() => {
     setFilters({ type: "", routeNumber: "", destination: "", time: "" });
@@ -157,6 +138,26 @@ const StopsLoader: React.FC = () => {
     checkIsStopInFav();
   }, [selectedStop]);
 
+  useEffect(() => {
+    if (arrivals[selectedStop.name]) {
+      setParametrsToFilterArrival([]);
+      console.log("in useeffrc");
+      const generateParametrsToFilterArrival = (filterBy: string) => {
+        return (filteredArrivals || arrivals)[selectedStop.name].reduce((parametersAccum, currentArrival) => {
+          if (!parametersAccum.includes(currentArrival[filterBy as keyof typeof currentArrival])) {
+            return [...parametersAccum, currentArrival[filterBy as keyof typeof currentArrival]];
+          } else return parametersAccum;
+        }, [] as string[]);
+      };
+
+      ["type", "routeNumber", "destination"].forEach((filterBy) => {
+        setParametrsToFilterArrival((prev) => {
+          return [...prev, generateParametrsToFilterArrival(filterBy)];
+        });
+      });
+    }
+  }, [filteredArrivals, arrivals]);
+
   const minutesToArrival = (arrivalTime: string): string => {
     let arrival: Date = new Date(arrivalTime);
     let now: Date = new Date();
@@ -173,16 +174,6 @@ const StopsLoader: React.FC = () => {
     setFilteredPeriod(period);
   };
 
-  // const getParametrsToFilterArrival = (filterBy: string): string[] => {
-
-  //     return (filteredArrivals || arrivals)[selectedStop.name].reduce((parametersAccum, currentArrival) => {
-  //       if (!parametersAccum.includes(currentArrival[filterBy as keyof typeof currentArrival])) {
-  //         return [...parametersAccum, currentArrival[filterBy as keyof typeof currentArrival]];
-  //       } else return parametersAccum;
-  //     }, [] as string[]);
-
-  // };
-
   const changeArrivalsFilter = (filterType: string, filterBy: string): void => {
     setFilters({ ...filters, [filterType]: filterBy });
   };
@@ -195,13 +186,11 @@ const StopsLoader: React.FC = () => {
       setIsStopInFav(false);
       setStopIndexInfav(null);
       localStorage.setItem("favStops", JSON.stringify(favoriteStops));
-      console.log("deleted", selectedStop);
     } else {
       tempFavStops.push(selectedStop);
       setFavoriteStops(tempFavStops);
       setIsStopInFav(true);
       localStorage.setItem("favStops", JSON.stringify(favoriteStops));
-      console.log("added", selectedStop);
     }
   };
 

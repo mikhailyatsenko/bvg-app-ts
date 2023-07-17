@@ -15,7 +15,9 @@ const FiltersOnArrivalPage: React.FC<{
         <select
           value={filters[filter as keyof typeof filters]}
           key={index}
-          onChange={(event) => changeArrivalsFilter(filter, event.target.value)}
+          onChange={(event) => {
+            changeArrivalsFilter(filter, event.target.value);
+          }}
           className="arrivals__item"
         >
           <option value="">All</option>

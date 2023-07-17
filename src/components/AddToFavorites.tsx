@@ -5,7 +5,6 @@ const AddToFavorites: React.FC<{ addToFav: () => void; isStopInFav: boolean }> =
   // checkIsStopInFav,
   isStopInFav,
 }) => {
-  console.log(isStopInFav);
   return (
     <div className="arrivals-section__add-to-fav drop-fav" onClick={() => addToFav()}>
       <div className={isStopInFav ? "material-symbols-outlined fav filled animate" : "material-symbols-outlined fav"}>favorite</div>
