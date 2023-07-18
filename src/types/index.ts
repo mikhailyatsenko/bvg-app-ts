@@ -20,5 +20,5 @@ export type Filters = {
   type: string;
   routeNumber: string;
   destination: string;
-  time: string;
+  // time: string;
 };

@@ -44,12 +44,14 @@ main {
     color: #d43f3f;
     border: 1px solid;
     border-color: transparent;
+
     &:hover {
       background-color: darken(#ffd7d7, 12%);
     }
     .material-symbols-outlined {
       font-size: 20px;
       vertical-align: bottom;
+      width: 20px;
     }
   }
   &--velvet {
@@ -129,6 +131,9 @@ main {
     &:nth-child(odd):not(:first-child) {
       background-color: #dab2ed;
     }
+    &:nth-child(2) {
+      background-color: #dddddd;
+    }
     &:hover:not(:first-child) {
       transform: scale(1.02);
       z-index: 1;
@@ -152,6 +157,14 @@ main {
     // &:nth-last-child(1) {
     //   width: 40%;
     // }
+    &--now {
+      font-weight: bold;
+      color: #269c08;
+    }
+    &--gone {
+      font-weight: bold;
+      color: #fd4f10;
+    }
   }
 }
 
@@ -321,4 +334,8 @@ main {
     background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
     background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
   }
+}
+
+select {
+  background: rgba(0, 0, 0, 0);
 }

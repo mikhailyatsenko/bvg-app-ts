@@ -18,7 +18,7 @@ const StopsLoader: React.FC = () => {
   const [isStopInFav, setIsStopInFav] = useState<boolean>(false);
   const [stopIndexInfav, setStopIndexInfav] = useState<number | null>(null);
   const [beIn, setBeIn] = useState<string[]>([]);
-  const [filters, setFilters] = useState<Filters>({ type: "", routeNumber: "", destination: "", time: "" });
+  const [filters, setFilters] = useState<Filters>({ type: "", routeNumber: "", destination: "" });
   const [parametrsToFilterArrival, setParametrsToFilterArrival] = useState<string[][]>([[], [], []]);
 
   const stopsToRender = stopsList
@@ -36,6 +36,23 @@ const StopsLoader: React.FC = () => {
     setSearchInputValue("");
     setSelectedStop({ id: id, name: name });
   };
+
+  useEffect(() => {
+    setFilters({ type: "", routeNumber: "", destination: "" });
+    setFilteredArrivals(null);
+    setFilteredPeriod("10");
+    const checkIsStopInFav = (): void => {
+      for (let i = 0; i < favoriteStops.length; i++) {
+        if (favoriteStops[i].id === selectedStop.id) {
+          setIsStopInFav(true);
+          setStopIndexInfav(i);
+          return;
+        }
+      }
+      setIsStopInFav(false);
+    };
+    checkIsStopInFav();
+  }, [selectedStop]);
 
   useEffect(() => {
     if (selectedStop.id) {
@@ -89,8 +106,9 @@ const StopsLoader: React.FC = () => {
   }, [selectedStop, filteredPeriod]);
 
   useEffect(() => {
-    if (arrivals[selectedStop.name] !== undefined) {
+    if (arrivals[selectedStop.name]) {
       setBeIn([]);
+      console.log(filteredArrivals || arrivals);
       (filteredArrivals || arrivals)[selectedStop.name].forEach((arrival) => {
         setBeIn((prev) => [...prev, minutesToArrival(arrival.time)]);
       });
@@ -121,22 +139,6 @@ const StopsLoader: React.FC = () => {
       }
     }
   }, [filters, arrivals]);
-
-  useEffect(() => {
-    setFilters({ type: "", routeNumber: "", destination: "", time: "" });
-
-    const checkIsStopInFav = (): void => {
-      for (let i = 0; i < favoriteStops.length; i++) {
-        if (favoriteStops[i].id === selectedStop.id) {
-          setIsStopInFav(true);
-          setStopIndexInfav(i);
-          return;
-        }
-      }
-      setIsStopInFav(false);
-    };
-    checkIsStopInFav();
-  }, [selectedStop]);
 
   useEffect(() => {
     if (arrivals[selectedStop.name]) {

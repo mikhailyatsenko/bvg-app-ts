@@ -34,9 +34,11 @@ const FiltersOnArrivalPage: React.FC<{
         <option value="30">30 minutes</option>
         <option value="40">40 minutes</option>
       </select>
-      <select className="arrivals__item">
-        <option value="">Sort</option>
-      </select>
+      <div className="arrivals__item">
+        {filters.type || filters.routeNumber || filters.destination || filteredPeriod !== "10" ? (
+          <div className="">Reset all filters</div>
+        ) : null}
+      </div>
     </div>
   );
 };

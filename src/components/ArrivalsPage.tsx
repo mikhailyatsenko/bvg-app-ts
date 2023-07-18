@@ -41,7 +41,7 @@ const ArrivalsPage: React.FC<{
                 <div className="arrivals__item">{arrival.routeNumber}</div>
                 <div className="arrivals__item">{arrival.destination}</div>
                 <div className="arrivals__item">{arrival.time.slice(11, 16)}</div>
-                <div className="arrivals__item">{beIn[index]}</div>
+                <div className={`arrivals__item arrivals__item--${beIn[index]}`}>{beIn[index]}</div>
               </div>
             ))}
           </div>
