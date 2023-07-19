@@ -14,7 +14,7 @@ const StopsLoader: React.FC = () => {
   const [arrivals, setArrivals] = useState<NormalizedArrivalType>({});
   const [filteredArrivals, setFilteredArrivals] = useState<NormalizedArrivalType | null>(null);
   const [filteredPeriod, setFilteredPeriod] = useState("10");
-  const [favoriteStops, setFavoriteStops] = useState(JSON.parse(localStorage.getItem("favStops") || "[]"));
+  const [favoriteStops, setFavoriteStops] = useState(() => JSON.parse(localStorage.getItem("favStops") || "[]"));
   const [isStopInFav, setIsStopInFav] = useState<boolean>(false);
   const [stopIndexInfav, setStopIndexInfav] = useState<number | null>(null);
   const [beIn, setBeIn] = useState<string[]>([]);
@@ -42,17 +42,31 @@ const StopsLoader: React.FC = () => {
     setFilteredArrivals(null);
     setFilteredPeriod("10");
     const checkIsStopInFav = (): void => {
-      for (let i = 0; i < favoriteStops.length; i++) {
-        if (favoriteStops[i].id === selectedStop.id) {
-          setIsStopInFav(true);
-          setStopIndexInfav(i);
-          return;
+      console.log("checing happend");
+      if (localStorage.getItem("favStops") !== null) {
+        for (let i = 0; i < JSON.parse(localStorage.getItem("favStops")!).length; i++) {
+          if (JSON.parse(localStorage.getItem("favStops")!)[i].id === selectedStop.id) {
+            setIsStopInFav(true);
+            setStopIndexInfav(i);
+            return;
+          }
         }
+        setIsStopInFav(false);
       }
-      setIsStopInFav(false);
     };
     checkIsStopInFav();
+    window.addEventListener("storage", checkIsStopInFav);
+    return () => {
+      window.addEventListener("storage", checkIsStopInFav);
+    };
   }, [selectedStop]);
+
+  // useEffect(() => {
+  //   window.addEventListener("storage", () => console.log("puk"));
+  //   return () => {
+  //     window.addEventListener("storage", () => console.log("puk"));
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (selectedStop.id) {
@@ -180,7 +194,9 @@ const StopsLoader: React.FC = () => {
     setFilters({ ...filters, [filterType]: filterBy });
   };
 
+  // need to check more addToFav
   const addToFav = (): void => {
+    console.log("function add/remove working");
     const tempFavStops = Object.assign(favoriteStops);
     if (isStopInFav) {
       tempFavStops.splice(stopIndexInfav, 1);
