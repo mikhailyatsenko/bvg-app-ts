@@ -10,7 +10,17 @@ const ArrivalsPage: React.FC<{
   filters: Filters;
   changePeriod: (period: string) => void;
   filteredPeriod: string;
-}> = ({ arrivals, beIn, parametrsToFilterArrival, changeArrivalsFilter, changePeriod, filters, filteredPeriod }) => {
+  resetAllArrivalsFilters: () => void;
+}> = ({
+  arrivals,
+  beIn,
+  parametrsToFilterArrival,
+  changeArrivalsFilter,
+  changePeriod,
+  filters,
+  filteredPeriod,
+  resetAllArrivalsFilters,
+}) => {
   const arrivalsArray = arrivals[Object.keys(arrivals)[0]];
 
   return (
@@ -34,6 +44,7 @@ const ArrivalsPage: React.FC<{
               changePeriod={changePeriod}
               filters={filters}
               filteredPeriod={filteredPeriod}
+              resetAllArrivalsFilters={resetAllArrivalsFilters}
             />
             {arrivalsArray.map((arrival, index) => (
               <div className="arrivals__line" key={index}>

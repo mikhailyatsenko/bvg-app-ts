@@ -50,8 +50,8 @@ const StopsLoader: React.FC = () => {
 
   useEffect(() => {
     setFilters({ type: "", routeNumber: "", destination: "" });
-    setFilteredArrivals(null);
     setFilteredPeriod("10");
+    setFilteredArrivals(null);
 
     // for (let i = 0; i < JSON.parse(localStorage.getItem("favStops")!).length; i++) {
     //   if (JSON.parse(localStorage.getItem("favStops")!)[i].id === selectedStop.id) {
@@ -209,6 +209,12 @@ const StopsLoader: React.FC = () => {
     setFilters({ ...filters, [filterType]: filterBy });
   };
 
+  const resetAllArrivalsFilters = () => {
+    setFilters({ type: "", routeNumber: "", destination: "" });
+    setFilteredPeriod("10");
+    setFilteredArrivals(null);
+  };
+
   // need to check more addToFav
   const addToFav = (): void => {
     const tempFavStops: StopType[] = Object.assign(favoriteStops);
@@ -260,6 +266,7 @@ const StopsLoader: React.FC = () => {
             filters={filters}
             changePeriod={changePeriod}
             filteredPeriod={filteredPeriod}
+            resetAllArrivalsFilters={resetAllArrivalsFilters}
           />
           <AddToFavorites addToFav={addToFav} isStopInFav={isStopInFav} />
         </>

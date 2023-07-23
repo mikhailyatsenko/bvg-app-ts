@@ -7,7 +7,15 @@ const FiltersOnArrivalPage: React.FC<{
   changePeriod: (period: string) => void;
   filters: Filters;
   filteredPeriod: string;
-}> = ({ parametrsToFilterArrival, changeArrivalsFilter, changePeriod, filters, filteredPeriod }) => {
+  resetAllArrivalsFilters: () => void;
+}> = ({
+  parametrsToFilterArrival,
+  changeArrivalsFilter,
+  changePeriod,
+  filters,
+  filteredPeriod,
+  resetAllArrivalsFilters,
+}) => {
   const selectFilters = ["type", "routeNumber", "destination"];
   return (
     <div className="arrivals__line">
@@ -28,7 +36,11 @@ const FiltersOnArrivalPage: React.FC<{
           ))}
         </select>
       ))}
-      <select value={filteredPeriod} onChange={(event) => changePeriod(event.target.value)} className="arrivals__item">
+      <select
+        value={filteredPeriod}
+        onChange={(event) => changePeriod(event.target.value)}
+        className="arrivals__item"
+      >
         <option value="10">10 minutes</option>
         <option value="20">20 minutes</option>
         <option value="30">30 minutes</option>
@@ -36,7 +48,10 @@ const FiltersOnArrivalPage: React.FC<{
       </select>
       <div className="arrivals__item">
         {filters.type || filters.routeNumber || filters.destination || filteredPeriod !== "10" ? (
-          <div className="">Reset all filters</div>
+          <div onClick={resetAllArrivalsFilters} className="reset-filters-button">
+            <span className="material-symbols-outlined">restart_alt</span>
+            Reset all filters
+          </div>
         ) : null}
       </div>
     </div>
