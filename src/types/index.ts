@@ -13,9 +13,11 @@ export type ArivalsType = {
 }[];
 
 export type NormalizedArrivalType = {
-  [key: string]: { type: string; time: string; routeNumber: string; destination: string }[];
-};
-
+  type: string;
+  time: string;
+  routeNumber: string;
+  destination: string;
+}[];
 export type Filters = {
   type: string;
   routeNumber: string;
