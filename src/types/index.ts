@@ -22,5 +22,35 @@ export type Filters = {
   type: string;
   routeNumber: string;
   destination: string;
-  // time: string;
 };
+
+export enum ArrivalsActionTypes {
+  FETCHING_ARRIVALS = "FETCHING_ARRIVALS",
+  INPUT_SEARCH_TYPING = "INPUT_SEARCH_TYPING",
+  FETCHING_ARRIVALS_SUCCESS = "FETCHING_ARRIVALS_SUCCESS",
+}
+
+type FetchArrivalsActionType = {
+  type: ArrivalsActionTypes.FETCHING_ARRIVALS;
+};
+
+type InputSearchTypingActionType = {
+  type: ArrivalsActionTypes.INPUT_SEARCH_TYPING;
+  payload: string;
+};
+
+type FetchinArrivalsSuccessActionType = {
+  type: ArrivalsActionTypes.FETCHING_ARRIVALS_SUCCESS;
+  payload: {
+    isLoading: boolean;
+    searchInputValue: string;
+    selectedStop: StopType;
+    arrivals: NormalizedArrivalType;
+    isStopInFav: boolean;
+    beIn: string[];
+  };
+};
+export type ArrivalsActionType =
+  | FetchArrivalsActionType
+  | InputSearchTypingActionType
+  | FetchinArrivalsSuccessActionType;
