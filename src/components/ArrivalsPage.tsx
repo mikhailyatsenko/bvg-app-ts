@@ -1,6 +1,6 @@
 import React from "react";
 import FiltersOnArrivalPage from "./FiltersOnArrivalPage";
-import { NormalizedArrivalType, Filters } from "../types";
+import { NormalizedArrivalType, Filters } from "../types/types";
 
 const ArrivalsPage: React.FC<{
   isLoading: boolean;

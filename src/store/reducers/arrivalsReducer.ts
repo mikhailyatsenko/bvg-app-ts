@@ -1,4 +1,5 @@
-import { StopType, NormalizedArrivalType, ArrivalsActionType, ArrivalsActionTypes } from "../../types";
+import { act } from "@testing-library/react";
+import { StopType, NormalizedArrivalType, ArrivalsActionType, ArrivalsActionTypes } from "../../types/types";
 
 type StopsStateType = {
   isLoading: boolean;
@@ -26,22 +27,28 @@ const initialState: StopsStateType = {
 
 export const arrivalsReducer = (state = initialState, action: ArrivalsActionType): StopsStateType => {
   switch (action.type) {
-    case ArrivalsActionTypes.FETCHING_ARRIVALS:
-      return { ...state, isLoading: true };
     case ArrivalsActionTypes.INPUT_SEARCH_TYPING:
       return {
         ...state,
         searchInputValue: action.payload,
+        // selectedStop: () => {
+        //   if (state.selectedStop.id) return { id: "", name: "" };
+        // },
       };
+
+    case ArrivalsActionTypes.SELECT_STOP:
+      return {
+        ...state,
+        searchInputValue: "",
+        selectedStop: action.payload,
+      };
+    case ArrivalsActionTypes.FETCHING_ARRIVALS:
+      return { ...state, isLoading: true };
     case ArrivalsActionTypes.FETCHING_ARRIVALS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        searchInputValue: "",
-        selectedStop: action.payload.selectedStop,
-        arrivals: action.payload.arrivals,
-        isStopInFav: action.payload.isStopInFav,
-        beIn: action.payload.beIn,
+        arrivals: action.payload,
       };
     default:
       return state;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Filters } from "../types";
+import { Filters } from "../types/types";
 
 const FiltersOnArrivalPage: React.FC<{
   parametrsToFilterArrival: string[][];

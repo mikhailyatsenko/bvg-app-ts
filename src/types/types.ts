@@ -25,32 +25,40 @@ export type Filters = {
 };
 
 export enum ArrivalsActionTypes {
-  FETCHING_ARRIVALS = "FETCHING_ARRIVALS",
   INPUT_SEARCH_TYPING = "INPUT_SEARCH_TYPING",
+  SELECT_STOP = "SELECT_STOP",
+  FETCHING_ARRIVALS = "FETCHING_ARRIVALS",
   FETCHING_ARRIVALS_SUCCESS = "FETCHING_ARRIVALS_SUCCESS",
+  FETCHING_ARRIVALS_ERROR = "FETCHING_ARRIVALS_ERROR",
 }
-
-type FetchArrivalsActionType = {
-  type: ArrivalsActionTypes.FETCHING_ARRIVALS;
-};
 
 type InputSearchTypingActionType = {
   type: ArrivalsActionTypes.INPUT_SEARCH_TYPING;
   payload: string;
 };
 
-type FetchinArrivalsSuccessActionType = {
-  type: ArrivalsActionTypes.FETCHING_ARRIVALS_SUCCESS;
-  payload: {
-    isLoading: boolean;
-    searchInputValue: string;
-    selectedStop: StopType;
-    arrivals: NormalizedArrivalType;
-    isStopInFav: boolean;
-    beIn: string[];
-  };
+type SelectStop = {
+  type: ArrivalsActionTypes.SELECT_STOP;
+  payload: StopType;
 };
+
+type FetchArrivalsActionType = {
+  type: ArrivalsActionTypes.FETCHING_ARRIVALS;
+};
+
+type FetchingArrivalsSuccessActionType = {
+  type: ArrivalsActionTypes.FETCHING_ARRIVALS_SUCCESS;
+  payload: NormalizedArrivalType;
+};
+
+type FetchArrivalsErrrorActionType = {
+  type: ArrivalsActionTypes.FETCHING_ARRIVALS_ERROR;
+  payload: string;
+};
+
 export type ArrivalsActionType =
-  | FetchArrivalsActionType
   | InputSearchTypingActionType
-  | FetchinArrivalsSuccessActionType;
+  | SelectStop
+  | FetchArrivalsActionType
+  | FetchingArrivalsSuccessActionType
+  | FetchArrivalsErrrorActionType;

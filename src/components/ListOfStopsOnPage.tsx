@@ -1,5 +1,5 @@
 import React from "react";
-import { StopType } from "../types";
+import { StopType } from "../types/types";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 type StopsOnPageProps = {
