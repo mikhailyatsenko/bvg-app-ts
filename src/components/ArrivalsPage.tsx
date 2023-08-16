@@ -1,12 +1,12 @@
 import React from "react";
 import FiltersOnArrivalPage from "./FiltersOnArrivalPage";
-import { NormalizedArrivalType, Filters } from "../types/types";
+import { Filters } from "../types/types";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const ArrivalsPage: React.FC<{
-  isLoading: boolean;
-  selectedStopName: string;
-  arrivals: NormalizedArrivalType;
-  beIn: string[];
+  // isLoading: boolean;
+  // selectedStopName: string;
+  // beIn: string[];
   parametrsToFilterArrival: string[][];
   changeArrivalsFilter: (filterType: string, filterBy: string) => void;
   filters: Filters;
@@ -14,10 +14,9 @@ const ArrivalsPage: React.FC<{
   filteredPeriod: string;
   resetAllArrivalsFilters: () => void;
 }> = ({
-  isLoading,
-  selectedStopName,
-  arrivals,
-  beIn,
+  // isLoading,
+  // selectedStopName,
+  // beIn,
   parametrsToFilterArrival,
   changeArrivalsFilter,
   changePeriod,
@@ -25,10 +24,12 @@ const ArrivalsPage: React.FC<{
   filteredPeriod,
   resetAllArrivalsFilters,
 }) => {
+  const { arrivals, isLoading, selectedStop, beIn } = useTypedSelector((state) => state.arrivals);
+  // console.log(beIn);
   return (
     <>
       <div className="arrivals-section">
-        <h2 className="">{selectedStopName}</h2>
+        <h2 className="">{selectedStop.name}</h2>
 
         <div className="arrivals">
           <FiltersOnArrivalPage

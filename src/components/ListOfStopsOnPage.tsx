@@ -20,8 +20,7 @@ const ListOfStopsOnPage: React.FC<StopsOnPageProps> = ({
   selectStop,
 }) => {
   let stops = !searchInputValue && favoriteStops.length ? favoriteStops : stopsToRender;
-  const reduxState = useTypedSelector((state) => state.arrivals);
-  console.log("redux-state", reduxState);
+
   return (
     <div className="stops-list">
       {stops.map((stop: StopType) => (

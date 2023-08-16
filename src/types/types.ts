@@ -30,6 +30,7 @@ export enum ArrivalsActionTypes {
   FETCHING_ARRIVALS = "FETCHING_ARRIVALS",
   FETCHING_ARRIVALS_SUCCESS = "FETCHING_ARRIVALS_SUCCESS",
   FETCHING_ARRIVALS_ERROR = "FETCHING_ARRIVALS_ERROR",
+  BE_IN_CALCULATE = "BE_IN_CALCULATE",
 }
 
 type InputSearchTypingActionType = {
@@ -56,9 +57,15 @@ type FetchArrivalsErrrorActionType = {
   payload: string;
 };
 
+type BeInCalculate = {
+  type: ArrivalsActionTypes.BE_IN_CALCULATE;
+  payload: string[];
+};
+
 export type ArrivalsActionType =
   | InputSearchTypingActionType
   | SelectStop
   | FetchArrivalsActionType
   | FetchingArrivalsSuccessActionType
-  | FetchArrivalsErrrorActionType;
+  | FetchArrivalsErrrorActionType
+  | BeInCalculate;

@@ -41,6 +41,7 @@ export const arrivalsReducer = (state = initialState, action: ArrivalsActionType
         ...state,
         searchInputValue: "",
         selectedStop: action.payload,
+        beIn: [],
       };
     case ArrivalsActionTypes.FETCHING_ARRIVALS:
       return { ...state, isLoading: true };
@@ -50,6 +51,8 @@ export const arrivalsReducer = (state = initialState, action: ArrivalsActionType
         isLoading: false,
         arrivals: action.payload,
       };
+    case ArrivalsActionTypes.BE_IN_CALCULATE:
+      return { ...state, beIn: action.payload };
     default:
       return state;
   }

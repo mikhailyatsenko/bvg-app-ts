@@ -47,7 +47,7 @@ const normalizeArrivals = (arrivalsData: ArivalsType) => {
   // }
 };
 
-export const fetchUsers = () => {
+export const fetchArrivalsAction = () => {
   return async (dispatch: Dispatch<ArrivalsActionType>, getState: () => RootStateType) => {
     try {
       dispatch({ type: ArrivalsActionTypes.FETCHING_ARRIVALS });
@@ -60,6 +60,7 @@ export const fetchUsers = () => {
         type: ArrivalsActionTypes.FETCHING_ARRIVALS_SUCCESS,
         payload: normalizeArrivals(response.data.arrivals),
       });
+      // console.log("in fetch action normalize data", normalizeArrivals(response.data.arrivals));
     } catch (e) {
       dispatch({ type: ArrivalsActionTypes.FETCHING_ARRIVALS_ERROR, payload: "Fetching error" });
     }
