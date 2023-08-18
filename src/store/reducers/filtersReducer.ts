@@ -12,8 +12,9 @@ const initialState: FiltersStateType = {
   parametersToFilterArrival: [[], [], []],
 };
 
-enum FilterArrivalsTypes {
+export enum FilterArrivalsTypes {
   CHANGE_PERIOD = "CHANGE_PERIOD",
+  SET_PARAMETERS_TO_FILTER_ARRIVALS = "SET_PARAMETERS_TO_FILTER_ARRIVALS",
   CHANGE_ARRIVALS_FILTERS = "CHANGE_ARRIVALS_FILTERS",
 }
 
@@ -22,26 +23,35 @@ type ChangePeriodActionType = {
   payload: string;
 };
 
-type ChangeArrivalsFiltersActionType = {
-  type: FilterArrivalsTypes.CHANGE_ARRIVALS_FILTERS;
-  payload: {
-    filters: Filters;
-    parametrsToFilterArrival: string[][];
-  };
+type SetParametersToFilterArrivalsActionType = {
+  type: FilterArrivalsTypes.SET_PARAMETERS_TO_FILTER_ARRIVALS;
+  payload: string[][];
 };
 
-type FilterArrivalsType = ChangeArrivalsFiltersActionType | ChangePeriodActionType;
+type ChangeArrivalsFiltersActionType = {
+  type: FilterArrivalsTypes.CHANGE_ARRIVALS_FILTERS;
+  payload: { filterBy: string; filterType: string };
+};
 
-export const filtersReducer = (state = initialState, action: FilterArrivalsType): FiltersStateType => {
+type FilterArrivalsActionType =
+  | ChangeArrivalsFiltersActionType
+  | ChangePeriodActionType
+  | SetParametersToFilterArrivalsActionType;
+
+export const filtersReducer = (state = initialState, action: FilterArrivalsActionType): FiltersStateType => {
   switch (action.type) {
     case FilterArrivalsTypes.CHANGE_PERIOD:
       return { ...state, filteredPeriod: action.payload };
 
+    case FilterArrivalsTypes.SET_PARAMETERS_TO_FILTER_ARRIVALS:
+      return {
+        ...state,
+        parametersToFilterArrival: action.payload,
+      };
     case FilterArrivalsTypes.CHANGE_ARRIVALS_FILTERS:
       return {
         ...state,
-        filters: action.payload.filters,
-        parametersToFilterArrival: action.payload.parametrsToFilterArrival,
+        filters: { ...state.filters, [action.payload.filterType]: action.payload.filterBy },
       };
 
     default:

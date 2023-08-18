@@ -1,27 +1,27 @@
 import React from "react";
 import FiltersOnArrivalPage from "./FiltersOnArrivalPage";
-import { Filters } from "../types/types";
+// import { Filters } from "../types/types";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const ArrivalsPage: React.FC<{
   // isLoading: boolean;
   // selectedStopName: string;
   // beIn: string[];
-  parametrsToFilterArrival: string[][];
+  // parametrsToFilterArrival: string[][];
   changeArrivalsFilter: (filterType: string, filterBy: string) => void;
-  filters: Filters;
+  // filters: Filters;
   changePeriod: (period: string) => void;
-  filteredPeriod: string;
+  // filteredPeriod: string;
   resetAllArrivalsFilters: () => void;
 }> = ({
   // isLoading,
   // selectedStopName,
   // beIn,
-  parametrsToFilterArrival,
+  // parametrsToFilterArrival,
   changeArrivalsFilter,
   changePeriod,
-  filters,
-  filteredPeriod,
+  // filters,
+  // filteredPeriod,
   resetAllArrivalsFilters,
 }) => {
   const { arrivals, isLoading, selectedStop, beIn } = useTypedSelector((state) => state.arrivals);
@@ -33,11 +33,11 @@ const ArrivalsPage: React.FC<{
 
         <div className="arrivals">
           <FiltersOnArrivalPage
-            parametrsToFilterArrival={parametrsToFilterArrival}
+            // parametrsToFilterArrival={parametrsToFilterArrival}
             changeArrivalsFilter={changeArrivalsFilter}
             changePeriod={changePeriod}
-            filters={filters}
-            filteredPeriod={filteredPeriod}
+            // filters={filters}
+            // filteredPeriod={filteredPeriod}
             resetAllArrivalsFilters={resetAllArrivalsFilters}
           />
           {isLoading ? (

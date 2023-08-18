@@ -28,13 +28,18 @@ const initialState: StopsStateType = {
 export const arrivalsReducer = (state = initialState, action: ArrivalsActionType): StopsStateType => {
   switch (action.type) {
     case ArrivalsActionTypes.INPUT_SEARCH_TYPING:
-      return {
-        ...state,
-        searchInputValue: action.payload,
-        // selectedStop: () => {
-        //   if (state.selectedStop.id) return { id: "", name: "" };
-        // },
-      };
+      if (state.selectedStop.id) {
+        return {
+          ...state,
+          arrivals: [],
+          selectedStop: initialState.selectedStop,
+          searchInputValue: action.payload,
+        };
+      } else
+        return {
+          ...state,
+          searchInputValue: action.payload,
+        };
 
     case ArrivalsActionTypes.SELECT_STOP:
       return {
