@@ -4,42 +4,34 @@ import ArrivalsPage from "../components/ArrivalsPage";
 import SearchStop from "../components/SearchStop";
 import AddToFavorites from "../components/AddToFavorites";
 import _stopsList from "../stopsList.json";
-import { StopType, NormalizedArrivalType, Filters } from "../types/types";
+
+import { StopType } from "../types/types";
+
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
+
 import { updateInputAction } from "../store/action-creators/updateInputAction";
 import { selectStopAction } from "../store/action-creators/selectStopAction";
 import { fetchArrivalsAction } from "../store/action-creators/fetchArrivalsAction";
 import { beInCalculateAction } from "../store/action-creators/beInCalculateAction";
-
 import { changePeriodAction } from "../store/action-creators/changePeriodAction";
 import { setParametersToFilterArrivalsAction } from "../store/action-creators/setParametersToFilterArrivalsAction";
 import { changeArrivalsFiltersAction } from "../store/action-creators/changeArrivalsFiltersAction";
+import { setFilteredArrivalsAction } from "../store/action-creators/setFilteredArrivalsAction";
+import { resetAllFiltersAction } from "../store/action-creators/resetAllFiltersAction";
+import { setFavoriteStopsAction } from "../store/action-creators/setFavoriteStopsAction";
+import { setIsStopInFavAction } from "../store/action-creators/setIsStopInFavAction";
 
 const StopsLoader: React.FC = () => {
   const stopsList = _stopsList as StopType[];
+
   const dispatch: any = useDispatch();
-  const { searchInputValue, favoriteStops, selectedStop, arrivals, beIn } = useTypedSelector(
+
+  const { searchInputValue, favoriteStops, selectedStop, arrivals, isStopInFav } = useTypedSelector(
     (state) => state.arrivals
   );
 
-  const { filteredPeriod, filters } = useTypedSelector((state) => state.filters);
-  // const [searchInputValue, setSearchInputValue] = useState("");
-  // const [selectedStop, setSelectedStop] = useState<StopType>({ id: "", name: "" });
-  const [isLoading, setIsloading] = useState(false);
-  // const [arrivals, setArrivals] = useState<NormalizedArrivalType>([]);
-  const [filteredArrivals, setFilteredArrivals] = useState<NormalizedArrivalType | null>(null);
-  // const [filteredPeriod, setFilteredPeriod] = useState("10");
-
-  // const [favoriteStops, setFavoriteStops] = useState<StopType[]>(
-  //   Array.isArray(JSON.parse(localStorage.getItem("favStops")!))
-  //     ? JSON.parse(localStorage.getItem("favStops")!)
-  //     : []
-  // );
-  const [isStopInFav, setIsStopInFav] = useState<boolean>(false);
-  // const [beIn, setBeIn] = useState<string[]>([]);
-  // const [filters, setFilters] = useState<Filters>({ type: "", routeNumber: "", destination: "" });
-  const [parametrsToFilterArrival, setParametrsToFilterArrival] = useState<string[][]>([[], [], []]);
+  const { filteredPeriod, filters, filteredArrivals } = useTypedSelector((state) => state.filters);
 
   const stopsToRender = stopsList
     .filter((stop) => {
@@ -48,12 +40,7 @@ const StopsLoader: React.FC = () => {
     .slice(0, 100);
 
   const updateSearchInput = (value: string): void => {
-    // setSearchInputValue(value);
     dispatch(updateInputAction(value));
-    // if (selectedStop.id) {
-    //   setArrivals([]);
-    //   setSelectedStop({ id: "", name: "" });
-    // }
   };
 
   const selectStop = (id: string, name: string): void => {
@@ -76,33 +63,25 @@ const StopsLoader: React.FC = () => {
     dispatch(changeArrivalsFiltersAction({ filterType: "routeNumber", filterBy: "" }));
     dispatch(changeArrivalsFiltersAction({ filterType: "routeNumber", filterBy: "" }));
     dispatch(changePeriodAction("10"));
-    setFilteredArrivals(null);
-
-    // for (let i = 0; i < JSON.parse(localStorage.getItem("favStops")!).length; i++) {
-    //   if (JSON.parse(localStorage.getItem("favStops")!)[i].id === selectedStop.id) {
-    //     setIsStopInFav(true);
-    //     setStopIndexInfav(i);
-    //   }
-    // }
-    // setIsStopInFav(false);
-    // };
+    dispatch(setFilteredArrivalsAction(null));
   }, [selectedStop]);
 
   useEffect(() => {
     const checkIsStopInFav = (): void => {
-      if (favoriteStops.length !== JSON.parse(localStorage.getItem("favStops")!).length) {
-        // setFavoriteStops(JSON.parse(localStorage.getItem("favStops")!));
+      if (JSON.stringify(favoriteStops) !== localStorage.getItem("favStops")) {
+        dispatch(setFavoriteStopsAction(JSON.parse(localStorage.getItem("favStops")!)));
       }
-      // if (favoriteStops.find((stop) => stop.id === selectedStop.id)) {
-      //   setIsStopInFav(true);
-      // } else {
-      //   setIsStopInFav(false);
-      // }
+      if (favoriteStops.find((stop) => stop.id === selectedStop.id)) {
+        dispatch(setIsStopInFavAction(true));
+      } else {
+        dispatch(setIsStopInFavAction(false));
+      }
     };
 
     if (selectedStop.id) {
       checkIsStopInFav();
     }
+
     window.addEventListener("storage", checkIsStopInFav);
     return () => {
       window.addEventListener("storage", checkIsStopInFav);
@@ -111,56 +90,12 @@ const StopsLoader: React.FC = () => {
 
   useEffect(() => {
     if (selectedStop.id) {
-      // const arrivalsLoad = async () => {
-      //   setIsloading(true);
-      //   let response = await fetch(
-      //     `https://v6.bvg.transport.rest/stops/${selectedStop.id}/arrivals?duration=${filteredPeriod}`
-      //   );
-      //   let data = await response.json();
-      //   normalizeArrivals(data.arrivals);
-      // };
-      // arrivalsLoad();
       dispatch(fetchArrivalsAction());
     }
-    // const normalizeArrivals = (arrivalsData: ArivalsType) => {
-    //   if (selectedStop.id) {
-    //     const normalizedArrivals: NormalizedArrivalType = [];
-    //     let arrivalType: string;
-    //     arrivalsData.forEach((arrival) => {
-    //       switch (arrival.line.product) {
-    //         case "suburban":
-    //           arrivalType = "S-Bahn";
-    //           break;
-    //         case "subway":
-    //           arrivalType = "U-Bahn";
-    //           break;
-    //         case "bus":
-    //           arrivalType = "Bus";
-    //           break;
-    //         case "tram":
-    //           arrivalType = "Tram";
-    //           break;
-    //         case "express":
-    //         case "regional":
-    //           arrivalType = "Regional";
-    //           break;
-    //       }
-    //       normalizedArrivals.push({
-    //         type: arrivalType,
-    //         time: arrival.when || arrival.plannedWhen,
-    //         routeNumber: arrival.line.name,
-    //         destination: arrival.provenance,
-    //       });
-    //     });
-    //     setArrivals(normalizedArrivals);
-    //     setIsloading(false);
-    //   }
-    // };
   }, [selectedStop, filteredPeriod]);
 
   useEffect(() => {
     if (arrivals.length) {
-      // dispatch(beInCalculateAction([]));
       let accumBeIn: string[] = [];
       arrivals.forEach((arrival) => {
         accumBeIn.push(minutesToArrival(arrival.time));
@@ -168,11 +103,6 @@ const StopsLoader: React.FC = () => {
       dispatch(beInCalculateAction(accumBeIn));
 
       const interval: NodeJS.Timer = setInterval(() => {
-        // setBeIn([]);
-        // (filteredArrivals || arrivals).forEach((arrival) => {
-        //   setBeIn((prev) => [...prev, minutesToArrival(arrival.time)]);
-        // });
-        // dispatch(beInCalculateAction([]));
         let accumBeIn: string[] = [];
         arrivals.forEach((arrival) => {
           accumBeIn.push(minutesToArrival(arrival.time));
@@ -187,13 +117,15 @@ const StopsLoader: React.FC = () => {
   useEffect(() => {
     if (arrivals.length) {
       if (!filters.type && !filters.routeNumber && !filters.destination) {
-        setFilteredArrivals(null);
+        dispatch(setFilteredArrivalsAction(null));
       } else {
-        setFilteredArrivals(
-          arrivals
-            .filter((arrival) => arrival.type === (filters.type || arrival.type))
-            .filter((arrival) => arrival.routeNumber === (filters.routeNumber || arrival.routeNumber))
-            .filter((arrival) => arrival.destination === (filters.destination || arrival.destination))
+        dispatch(
+          setFilteredArrivalsAction(
+            arrivals
+              .filter((arrival) => arrival.type === (filters.type || arrival.type))
+              .filter((arrival) => arrival.routeNumber === (filters.routeNumber || arrival.routeNumber))
+              .filter((arrival) => arrival.destination === (filters.destination || arrival.destination))
+          )
         );
       }
     }
@@ -202,7 +134,6 @@ const StopsLoader: React.FC = () => {
   useEffect(() => {
     if (arrivals.length) {
       dispatch(setParametersToFilterArrivalsAction([[], [], []]));
-      // setParametrsToFilterArrival([]);
       const generateParametrsToFilterArrival = (filterBy: string) => {
         return (filteredArrivals || arrivals).reduce((parametersAccum, currentArrival) => {
           if (!parametersAccum.includes(currentArrival[filterBy as keyof typeof currentArrival])) {
@@ -239,12 +170,7 @@ const StopsLoader: React.FC = () => {
   };
 
   const resetAllArrivalsFilters = () => {
-    // setFilters({ type: "", routeNumber: "", destination: "" });
-    dispatch(changeArrivalsFiltersAction({ filterType: "type", filterBy: "" }));
-    dispatch(changeArrivalsFiltersAction({ filterType: "routeNumber", filterBy: "" }));
-    dispatch(changeArrivalsFiltersAction({ filterType: "routeNumber", filterBy: "" }));
-    dispatch(changePeriodAction("10"));
-    setFilteredArrivals(null);
+    dispatch(resetAllFiltersAction());
   };
 
   const addToFav = (): void => {
@@ -255,16 +181,18 @@ const StopsLoader: React.FC = () => {
         "making state like this:",
         tempFavStops.filter((favStop) => favStop.id !== selectedStop.id)
       );
-
-      // setFavoriteStops(tempFavStops.filter((favStop) => favStop.id !== selectedStop.id));
+      dispatch(setFavoriteStopsAction(tempFavStops.filter((favStop) => favStop.id !== selectedStop.id)));
     } else {
       console.log("stop is not in fav, so pushing");
       console.log("making adding to state:", selectedStop);
+      dispatch(setFavoriteStopsAction([...tempFavStops, selectedStop]));
+      // tempFavStops.push(selectedStop)
       // setFavoriteStops(() => [...favoriteStops, selectedStop]);
     }
   };
 
   const removeAllFavoritesStops = (): void => {
+    dispatch(setFavoriteStopsAction([]));
     // setFavoriteStops([]);
     localStorage.setItem("favStops", "[]");
   };
@@ -283,25 +211,17 @@ const StopsLoader: React.FC = () => {
           removeAllFavoritesStops={removeAllFavoritesStops}
           searchInputValue={searchInputValue}
           selectStop={selectStop}
-          isLoading={isLoading}
         />
       )}
 
       {selectedStop.id && (
         <ArrivalsPage
-          // selectedStopName={selectedStop.name}
-          // arrivals={filteredArrivals || arrivals}
-          // beIn={beIn}
-          // parametrsToFilterArrival={parametrsToFilterArrival}
           changeArrivalsFilter={changeArrivalsFilter}
-          // filters={filters}
           changePeriod={changePeriod}
-          // filteredPeriod={filteredPeriod}
           resetAllArrivalsFilters={resetAllArrivalsFilters}
-          // isLoading={isLoading}
         />
       )}
-      {selectedStop.id && <AddToFavorites addToFav={addToFav} isStopInFav={isStopInFav} />}
+      {selectedStop.id && <AddToFavorites addToFav={addToFav} />}
     </main>
   );
 };

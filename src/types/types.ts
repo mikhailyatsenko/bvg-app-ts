@@ -31,6 +31,8 @@ export enum ArrivalsActionTypes {
   FETCHING_ARRIVALS_SUCCESS = "FETCHING_ARRIVALS_SUCCESS",
   FETCHING_ARRIVALS_ERROR = "FETCHING_ARRIVALS_ERROR",
   BE_IN_CALCULATE = "BE_IN_CALCULATE",
+  SET_FAVORITE_STOPS = "SET_FAVORITE_STOPS",
+  SET_IS_STOP_IN_FAV = "IS_STOP_IN_FAV",
 }
 
 type InputSearchTypingActionType = {
@@ -57,9 +59,19 @@ type FetchArrivalsErrrorActionType = {
   payload: string;
 };
 
-type BeInCalculate = {
+type BeInCalculateActionType = {
   type: ArrivalsActionTypes.BE_IN_CALCULATE;
   payload: string[];
+};
+
+type SetFavoriteStopsActionType = {
+  type: ArrivalsActionTypes.SET_FAVORITE_STOPS;
+  payload: StopType[];
+};
+
+type SetIsStopInFav = {
+  type: ArrivalsActionTypes.SET_IS_STOP_IN_FAV;
+  payload: boolean;
 };
 
 export type ArrivalsActionType =
@@ -68,4 +80,6 @@ export type ArrivalsActionType =
   | FetchArrivalsActionType
   | FetchingArrivalsSuccessActionType
   | FetchArrivalsErrrorActionType
-  | BeInCalculate;
+  | BeInCalculateActionType
+  | SetFavoriteStopsActionType
+  | SetIsStopInFav;

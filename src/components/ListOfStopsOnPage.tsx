@@ -1,9 +1,7 @@
 import React from "react";
 import { StopType } from "../types/types";
-import { useTypedSelector } from "../hooks/useTypedSelector";
 
 type StopsOnPageProps = {
-  isLoading: boolean;
   stopsToRender: StopType[];
   favoriteStops: StopType[];
   searchInputValue: string;
@@ -12,7 +10,6 @@ type StopsOnPageProps = {
 };
 
 const ListOfStopsOnPage: React.FC<StopsOnPageProps> = ({
-  isLoading,
   stopsToRender,
   favoriteStops,
   searchInputValue,

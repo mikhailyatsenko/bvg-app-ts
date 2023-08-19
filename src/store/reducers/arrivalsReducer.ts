@@ -1,4 +1,3 @@
-import { act } from "@testing-library/react";
 import { StopType, NormalizedArrivalType, ArrivalsActionType, ArrivalsActionTypes } from "../../types/types";
 
 type StopsStateType = {
@@ -6,7 +5,6 @@ type StopsStateType = {
   searchInputValue: string;
   selectedStop: StopType;
   arrivals: NormalizedArrivalType;
-  filteredArrivals: NormalizedArrivalType | null;
   favoriteStops: StopType[];
   isStopInFav: boolean;
   beIn: string[];
@@ -17,7 +15,6 @@ const initialState: StopsStateType = {
   searchInputValue: "",
   selectedStop: { id: "", name: "" },
   arrivals: [],
-  filteredArrivals: [],
   favoriteStops: Array.isArray(JSON.parse(localStorage.getItem("favStops")!))
     ? JSON.parse(localStorage.getItem("favStops")!)
     : [],
@@ -58,6 +55,12 @@ export const arrivalsReducer = (state = initialState, action: ArrivalsActionType
       };
     case ArrivalsActionTypes.BE_IN_CALCULATE:
       return { ...state, beIn: action.payload };
+
+    case ArrivalsActionTypes.SET_IS_STOP_IN_FAV:
+      return { ...state, isStopInFav: action.payload };
+
+    case ArrivalsActionTypes.SET_FAVORITE_STOPS:
+      return { ...state, favoriteStops: action.payload };
     default:
       return state;
   }
