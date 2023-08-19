@@ -1,16 +1,7 @@
-import { StopType, NormalizedArrivalType, ArrivalsActionType, ArrivalsActionTypes } from "../../types/types";
+import { ArrivalsActionType, ArrivalsActionTypes } from "../../types/ReduxArrivalsTypes";
+import { ArrivalsStateType } from "../../types/ReduxArrivalsTypes";
 
-type StopsStateType = {
-  isLoading: boolean;
-  searchInputValue: string;
-  selectedStop: StopType;
-  arrivals: NormalizedArrivalType;
-  favoriteStops: StopType[];
-  isStopInFav: boolean;
-  beIn: string[];
-};
-
-const initialState: StopsStateType = {
+const initialState: ArrivalsStateType = {
   isLoading: false,
   searchInputValue: "",
   selectedStop: { id: "", name: "" },
@@ -22,7 +13,7 @@ const initialState: StopsStateType = {
   beIn: [],
 };
 
-export const arrivalsReducer = (state = initialState, action: ArrivalsActionType): StopsStateType => {
+export const arrivalsReducer = (state = initialState, action: ArrivalsActionType): ArrivalsStateType => {
   switch (action.type) {
     case ArrivalsActionTypes.INPUT_SEARCH_TYPING:
       if (state.selectedStop.id) {

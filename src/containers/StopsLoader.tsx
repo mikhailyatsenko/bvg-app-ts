@@ -5,7 +5,7 @@ import SearchStop from "../components/SearchStop";
 import AddToFavorites from "../components/AddToFavorites";
 import _stopsList from "../stopsList.json";
 
-import { StopType } from "../types/types";
+import { StopType } from "../types/MainTypes";
 
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
@@ -24,7 +24,6 @@ import { setIsStopInFavAction } from "../store/action-creators/setIsStopInFavAct
 
 const StopsLoader: React.FC = () => {
   const stopsList = _stopsList as StopType[];
-
   const dispatch: any = useDispatch();
 
   const { searchInputValue, favoriteStops, selectedStop, arrivals, isStopInFav } = useTypedSelector(
@@ -207,9 +206,7 @@ const StopsLoader: React.FC = () => {
       {!selectedStop.id && (
         <ListOfStopsOnPage
           stopsToRender={stopsToRender}
-          favoriteStops={favoriteStops}
           removeAllFavoritesStops={removeAllFavoritesStops}
-          searchInputValue={searchInputValue}
           selectStop={selectStop}
         />
       )}

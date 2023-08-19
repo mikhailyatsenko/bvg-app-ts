@@ -1,4 +1,4 @@
-import { ArrivalsActionTypes } from "../../types/types";
+import { ArrivalsActionTypes } from "../../types/ReduxArrivalsTypes";
 
 export const updateInputAction = (inputValue: string) => ({
   type: ArrivalsActionTypes.INPUT_SEARCH_TYPING,

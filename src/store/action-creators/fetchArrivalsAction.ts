@@ -2,12 +2,9 @@ import { Dispatch } from "react";
 import axios from "axios";
 import { RootStateType } from "../reducers";
 
-import {
-  ArrivalsActionType,
-  ArrivalsActionTypes,
-  ArivalsType,
-  NormalizedArrivalType,
-} from "../../types/types";
+import { ArrivalsActionType, ArrivalsActionTypes } from "../../types/ReduxArrivalsTypes";
+
+import { ArivalsType, NormalizedArrivalType } from "../../types/MainTypes";
 
 const normalizeArrivals = (arrivalsData: ArivalsType) => {
   // if (selectedStop.id) {

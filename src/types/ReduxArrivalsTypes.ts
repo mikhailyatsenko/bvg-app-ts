@@ -1,27 +1,13 @@
-export type StopType = { id: string; name: string };
+import { StopType, NormalizedArrivalType } from "./MainTypes";
 
-export type ArivalsType = {
-  [key: string]: string | [] | {} | null;
-  line: {
-    [key: string]: string | {};
-    product: string;
-    name: string;
-  };
-  when: string | null;
-  plannedWhen: string;
-  provenance: string;
-}[];
-
-export type NormalizedArrivalType = {
-  type: string;
-  time: string;
-  routeNumber: string;
-  destination: string;
-}[];
-export type Filters = {
-  type: string;
-  routeNumber: string;
-  destination: string;
+export type ArrivalsStateType = {
+  isLoading: boolean;
+  searchInputValue: string;
+  selectedStop: StopType;
+  arrivals: NormalizedArrivalType;
+  favoriteStops: StopType[];
+  isStopInFav: boolean;
+  beIn: string[];
 };
 
 export enum ArrivalsActionTypes {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { StopType } from "../types/types";
+import { StopType } from "../types/MainTypes";
 
 const SearchStop: React.FC<{
   updateSearchInput: (value: string) => void;

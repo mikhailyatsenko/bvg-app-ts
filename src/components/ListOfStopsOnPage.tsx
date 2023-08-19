@@ -1,21 +1,20 @@
 import React from "react";
-import { StopType } from "../types/types";
+import { StopType } from "../types/MainTypes";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 type StopsOnPageProps = {
   stopsToRender: StopType[];
-  favoriteStops: StopType[];
-  searchInputValue: string;
   selectStop: (id: string, name: string) => void;
   removeAllFavoritesStops: () => void;
 };
 
 const ListOfStopsOnPage: React.FC<StopsOnPageProps> = ({
   stopsToRender,
-  favoriteStops,
-  searchInputValue,
   removeAllFavoritesStops,
   selectStop,
 }) => {
+  const { favoriteStops, searchInputValue } = useTypedSelector((state) => state.arrivals);
+
   let stops = !searchInputValue && favoriteStops.length ? favoriteStops : stopsToRender;
 
   return (
