@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ListOfStopsOnPage from "../components/ListOfStopsOnPage";
 import ArrivalsPage from "../components/ArrivalsPage";
 import SearchStop from "../components/SearchStop";
@@ -8,12 +8,10 @@ import _stopsList from "../stopsList.json";
 import { StopType } from "../types/MainTypes";
 
 import { useTypedSelector } from "../hooks/useTypedSelector";
-// import { useDispatch } from "react-redux";
 
 import { useActions } from "../hooks/useActions";
 const StopsLoader: React.FC = () => {
   const stopsList = _stopsList as StopType[];
-  // const dispatch: any = useDispatch();
   const {
     fetchArrivalsAction,
     updateInputAction,
@@ -112,7 +110,6 @@ const StopsLoader: React.FC = () => {
       }, 10000);
       return () => clearInterval(interval);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrivals, filteredArrivals]);
 
   useEffect(() => {
@@ -190,7 +187,6 @@ const StopsLoader: React.FC = () => {
 
   const removeAllFavoritesStops = (): void => {
     setFavoriteStopsAction([]);
-    // setFavoriteStops([]);
     localStorage.setItem("favStops", "[]");
   };
   return (
