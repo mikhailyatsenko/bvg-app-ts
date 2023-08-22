@@ -1,6 +1,6 @@
 import { ArrivalsActionTypes, ArrivalsActionType } from "../../types/ReduxArrivalsTypes";
 import { StopType } from "../../types/MainTypes";
-import { RootStateType } from "../reducers";
+import { RootStateType } from "../";
 
 import { Dispatch } from "redux";
 import axios from "axios";

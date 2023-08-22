@@ -13,7 +13,7 @@ const initialState: ArrivalsStateType = {
   beIn: [],
 };
 
-export const arrivalsReducer = (state = initialState, action: ArrivalsActionType): ArrivalsStateType => {
+const arrivalsReducer = (state = initialState, action: ArrivalsActionType): ArrivalsStateType => {
   switch (action.type) {
     case ArrivalsActionTypes.INPUT_SEARCH_TYPING:
       if (state.selectedStop.id) {
