@@ -1,7 +1,13 @@
-// import { applyMiddleware, createStore } from "redux";
-// import thunk from "redux-thunk";
-import { rootReducer } from "./reducers";
 import { configureStore } from "@reduxjs/toolkit";
+
+import { combineReducers } from "redux";
+import arrivalsReducer from "./arrivalsSlice";
+import filtersReducer from "./filtersSlice";
+
+export const rootReducer = combineReducers({
+  arrivals: arrivalsReducer,
+  filters: filtersReducer,
+});
 
 export const setupStore = () => {
   return configureStore({

@@ -1,10 +1,16 @@
-import { Filters, NormalizedArrivalType } from "./MainTypes";
+import { NormalizedArrivalType } from "./MainTypes";
 
 export type FiltersStateType = {
   filteredPeriod: string;
   filters: Filters;
   parametersToFilterArrival: string[][];
   filteredArrivals: NormalizedArrivalType | null;
+};
+
+export type Filters = {
+  type: string;
+  routeNumber: string;
+  destination: string;
 };
 
 export enum FilterArrivalsTypes {

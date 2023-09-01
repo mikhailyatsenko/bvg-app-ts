@@ -8,6 +8,7 @@ export type ArrivalsStateType = {
   favoriteStops: StopType[];
   isStopInFav: boolean;
   beIn: string[];
+  error: string | undefined;
 };
 
 export enum ArrivalsActionTypes {

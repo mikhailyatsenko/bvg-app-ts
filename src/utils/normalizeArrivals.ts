@@ -1,10 +1,11 @@
-import { NormalizedArrivalType, ArivalsType } from "../types/MainTypes";
+import { NormalizedArrivalType, ArrivalsType } from "../types/MainTypes";
 
-export const normalizeArrivals = (arrivalsData: ArivalsType) => {
+export const normalizeArrivals = (arrivalsData: ArrivalsType) => {
   const normalizedArrivals: NormalizedArrivalType = [];
+  console.log("normalized", arrivalsData);
 
   let arrivalType: string;
-  arrivalsData.forEach((arrival) => {
+  arrivalsData.arrivals.forEach((arrival) => {
     switch (arrival.line.product) {
       case "suburban":
         arrivalType = "S-Bahn";
@@ -31,6 +32,6 @@ export const normalizeArrivals = (arrivalsData: ArivalsType) => {
       destination: arrival.provenance,
     });
   });
-
+  console.log("normalizing");
   return normalizedArrivals;
 };

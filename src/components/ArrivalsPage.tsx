@@ -4,10 +4,10 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const ArrivalsPage: React.FC<{
   changeArrivalsFilter: (filterType: string, filterBy: string) => void;
-  changePeriod: (period: string) => void;
+  changePeriodHandler: (period: string) => void;
   resetAllArrivalsFilters: () => void;
-}> = ({ changeArrivalsFilter, changePeriod, resetAllArrivalsFilters }) => {
-  const { arrivals, isLoading, selectedStop, beIn } = useTypedSelector((state) => state.arrivals);
+}> = ({ changeArrivalsFilter, changePeriodHandler, resetAllArrivalsFilters }) => {
+  const { arrivals, isLoading, selectedStop, beIn, error } = useTypedSelector((state) => state.arrivals);
   const { filteredArrivals } = useTypedSelector((state) => state.filters);
   const arrivalsToDisplay = filteredArrivals || arrivals;
   return (
@@ -18,9 +18,10 @@ const ArrivalsPage: React.FC<{
         <div className="arrivals">
           <FiltersOnArrivalPage
             changeArrivalsFilter={changeArrivalsFilter}
-            changePeriod={changePeriod}
+            changePeriodHandler={changePeriodHandler}
             resetAllArrivalsFilters={resetAllArrivalsFilters}
           />
+
           {isLoading ? (
             <div className="lds-dual-ring"></div>
           ) : arrivalsToDisplay.length ? (
@@ -34,7 +35,7 @@ const ArrivalsPage: React.FC<{
               </div>
             ))
           ) : (
-            <div>No arrivals by this request</div>
+            <div>{error ? error : "No arrivals by this request"}</div>
           )}
         </div>
       </div>
