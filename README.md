@@ -3,7 +3,7 @@
 # Stack:
 
 - ReactJS
-- React Redux, Redux Tolokit
+- React Redux, Redux Toolkit
 - TypeScript
 - SCSS
 
