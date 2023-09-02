@@ -2,7 +2,6 @@ import { NormalizedArrivalType, ArrivalsType } from "../types/MainTypes";
 
 export const normalizeArrivals = (arrivalsData: ArrivalsType) => {
   const normalizedArrivals: NormalizedArrivalType = [];
-  console.log("normalized", arrivalsData);
 
   let arrivalType: string;
   arrivalsData.arrivals.forEach((arrival) => {
@@ -32,6 +31,5 @@ export const normalizeArrivals = (arrivalsData: ArrivalsType) => {
       destination: arrival.provenance,
     });
   });
-  console.log("normalizing");
   return normalizedArrivals;
 };

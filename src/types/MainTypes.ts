@@ -21,8 +21,3 @@ export type NormalizedArrivalType = {
   routeNumber: string;
   destination: string;
 }[];
-export type Filters = {
-  type: string;
-  routeNumber: string;
-  destination: string;
-};

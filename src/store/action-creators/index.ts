@@ -1,11 +1,11 @@
-// // import * as arrivalsActionCreators from "./arrivalsActionCreators";
-// import * as filterArrivalsActionCreators from "./filterArrivalsActionCreators";
 import { filtersSlice } from "../filtersSlice";
 import { arrivalsSlice } from "../arrivalsSlice";
 import { fetchArrivalsAction } from "./arrivalsActionCreators";
 
-export default {
+const actions = {
   ...filtersSlice.actions,
   ...arrivalsSlice.actions,
   fetchArrivalsAction,
 };
+
+export default actions;

@@ -23,11 +23,6 @@ const SearchStop: React.FC<{
           updateSearchInput(event.target.value);
         }}
       />
-      {/* {selectedStopName && (
-          <div onClick={() => updateInput("")} className="another-search-button">
-            Search another stop
-          </div>
-        )} */}
     </div>
   );
 };

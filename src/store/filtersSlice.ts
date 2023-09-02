@@ -21,7 +21,6 @@ export const filtersSlice = createSlice({
     },
     changeArrivalsFilters(state, action: PayloadAction<{ filterType: string; filterBy: string }>) {
       state.filters = { ...state.filters, [action.payload.filterType]: action.payload.filterBy };
-      console.log(state.filters);
     },
     setFilteredArrivals(state, action: PayloadAction<NormalizedArrivalType | null>) {
       state.filteredArrivals = action.payload;

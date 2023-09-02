@@ -38,21 +38,6 @@ export const arrivalsSlice = createSlice({
       state.beIn = [];
     },
 
-    // fetchingArrivals(state) {
-    //   state.isLoading = true;
-    // },
-
-    // fetchingArrivalsSuccess(state, action: PayloadAction<NormalizedArrivalType>) {
-    //   state.isLoading = false;
-    //   state.error = "";
-    //   state.arrivals = action.payload;
-    // },
-
-    // fetchingArrivalsError(state, action: PayloadAction<string>) {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
-
     beInCalculate(state, action: PayloadAction<string[]>) {
       state.beIn = action.payload;
     },
