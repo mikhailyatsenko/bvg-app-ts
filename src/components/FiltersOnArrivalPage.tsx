@@ -1,22 +1,13 @@
 import React from "react";
-import { Filters } from "../types";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const FiltersOnArrivalPage: React.FC<{
-  parametrsToFilterArrival: string[][];
   changeArrivalsFilter: (filterType: string, filterBy: string) => void;
-  changePeriod: (period: string) => void;
-  filters: Filters;
-  filteredPeriod: string;
+  changePeriodHandler: (period: string) => void;
   resetAllArrivalsFilters: () => void;
-}> = ({
-  parametrsToFilterArrival,
-  changeArrivalsFilter,
-  changePeriod,
-  filters,
-  filteredPeriod,
-  resetAllArrivalsFilters,
-}) => {
+}> = ({ changeArrivalsFilter, changePeriodHandler, resetAllArrivalsFilters }) => {
   const selectFilters = ["type", "routeNumber", "destination"];
+  const { filteredPeriod, parametersToFilterArrival, filters } = useTypedSelector((state) => state.filters);
   return (
     <>
       <div className="arrivals__line">
@@ -26,6 +17,7 @@ const FiltersOnArrivalPage: React.FC<{
         <div className="arrivals__item">Arrival time</div>
         <div className="arrivals__item">Be in</div>
       </div>
+
       <div className="arrivals__line">
         {selectFilters.map((filter, index) => (
           <select
@@ -37,7 +29,7 @@ const FiltersOnArrivalPage: React.FC<{
             className="arrivals__item"
           >
             <option value="">All</option>
-            {parametrsToFilterArrival[index].map((filterBy, index) => (
+            {parametersToFilterArrival[index].map((filterBy, index) => (
               <option key={index} value={filterBy}>
                 {filterBy}
               </option>
@@ -46,7 +38,7 @@ const FiltersOnArrivalPage: React.FC<{
         ))}
         <select
           value={filteredPeriod}
-          onChange={(event) => changePeriod(event.target.value)}
+          onChange={(event) => changePeriodHandler(event.target.value)}
           className="arrivals__item"
         >
           <option value="10">10 minutes</option>

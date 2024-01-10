@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { StopType } from "../types";
+import { StopType } from "../types/MainTypes";
 
 const SearchStop: React.FC<{
   updateSearchInput: (value: string) => void;
@@ -23,11 +23,6 @@ const SearchStop: React.FC<{
           updateSearchInput(event.target.value);
         }}
       />
-      {/* {selectedStopName && (
-          <div onClick={() => updateInput("")} className="another-search-button">
-            Search another stop
-          </div>
-        )} */}
     </div>
   );
 };
