@@ -3,12 +3,14 @@ import { stopsActions } from "..";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { getStopsToRender } from "../model/selectors/getStopsToRender/getStopsToRender";
+import { getSearchValue } from "features/StopSearch";
 import { useEffect } from "react";
 
 export const Stops: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const stopsToRender = useSelector(getStopsToRender);
+  const searchValue = useSelector(getSearchValue);
   console.log(stopsToRender);
 
   useEffect(() => {
@@ -16,15 +18,12 @@ export const Stops: React.FC = () => {
       stopsActions.setStopsToRender(
         stopsListData
           .filter((stop) => {
-            return stop.name.toLowerCase().includes(
-              // searchInputValue.toLowerCase()
-              ""
-            );
+            return stop.name.toLowerCase().includes(searchValue.toLowerCase());
           })
           .slice(0, 100)
       )
     );
-  }, [dispatch]);
+  }, [dispatch, searchValue]);
 
   // const stopsToRender = stopsListData
   //   .filter((stop) => {
