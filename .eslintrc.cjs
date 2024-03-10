@@ -42,5 +42,7 @@ module.exports = {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/strict-boolean-expressions": ["error", { allowString: true, "allowNullable": true }],
+    "@typescript-eslint/no-unused-vars": "warn",
   },
 };

@@ -1,26 +1,52 @@
 // import FiltersOnArrivalPage from "./FiltersOnArrivalPage";
 import { useSelector } from "react-redux";
 import { getArrivals } from "features/LoadArrivals";
-import { getSelectedStop } from "entities/Stops";
+import { getSelectedStop, stopsActions } from "entities/Stops";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { useEffect } from "react";
 import { fetchArrivals } from "features/LoadArrivals/model/services/fetchArrivals";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { getStopNameById } from "features/LoadArrivals/utils/getStopNameById/getStopNameById";
+
+interface LocationState {
+  stopName?: string;
+}
 
 export const ArrivalsTable: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+
   const arrivals = useSelector(getArrivals);
   const selectedStop = useSelector(getSelectedStop);
-  const dispatch = useAppDispatch();
+
+  const stopId = searchParams.get("id");
+  const { stopName }: LocationState = location.state || { stopName: undefined };
+
+  useEffect(() => {
+    if (stopId !== null) {
+      if (stopName !== undefined) {
+        dispatch(stopsActions.setSelectedStopName(stopName));
+      } else {
+        dispatch(stopsActions.setSelectedStopName(getStopNameById(stopId)));
+      }
+      dispatch(stopsActions.setSelectedStopId(stopId));
+    }
+  }, [dispatch, stopId, stopName]);
 
   useEffect(() => {
     const arrivalsData = async () => {
-      const arrivalsData = await dispatch(fetchArrivals(selectedStop));
+      const arrivalsData = await dispatch(fetchArrivals(selectedStop.id));
       console.log(arrivalsData);
     };
 
-    arrivalsData().catch((e) => {
-      console.error("Error occurred during fetchArrivals: ", e);
-    });
-  }, [dispatch, selectedStop]);
+    if (selectedStop.id.length) {
+      console.log(selectedStop.id);
+      arrivalsData().catch((e) => {
+        console.error("Error occurred during fetchArrivals: ", e);
+      });
+    }
+  }, [dispatch, selectedStop.id]);
 
   return (
     <>

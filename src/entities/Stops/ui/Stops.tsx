@@ -27,9 +27,9 @@ export const Stops: React.FC = () => {
   }, [dispatch, searchValue]);
 
   const selectStopHandler = (selectedStop: Stop): void => {
-    dispatch(stopsActions.setSelectedStop(selectedStop));
-    navigate("/arrivals");
+    navigate(`/arrivals?id=${selectedStop.id}`, { state: { stopName: selectedStop.name } });
   };
+
   return (
     <>
       {stopsToRender.map((stop) => (

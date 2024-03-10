@@ -14,8 +14,11 @@ export const stopListSlice = createSlice({
     setStopsToRender: (state, action: PayloadAction<Stop[]>) => {
       state.stopsToRender = action.payload;
     },
-    setSelectedStop: (state, action: PayloadAction<Stop>) => {
-      state.selectedStop = action.payload;
+    setSelectedStopName: (state, action: PayloadAction<string>) => {
+      state.selectedStop.name = action.payload;
+    },
+    setSelectedStopId: (state, action: PayloadAction<string>) => {
+      state.selectedStop.id = action.payload;
     },
   },
 });
