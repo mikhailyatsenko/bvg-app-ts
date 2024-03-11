@@ -21,7 +21,7 @@ export const ArrivalsTable: React.FC = () => {
   const selectedStop = useSelector(getSelectedStop);
 
   const stopId = searchParams.get("id");
-  const { stopName }: LocationState = location.state || { stopName: undefined };
+  const { stopName }: LocationState = location.state ?? { stopName: undefined };
 
   useEffect(() => {
     if (stopId !== null) {
