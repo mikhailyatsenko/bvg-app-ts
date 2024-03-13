@@ -27,7 +27,6 @@ export const arrivalsSlice = createSlice({
       state.isLoading = false;
       state.error = undefined;
       state.arrivals = normalizeArrivals(action.payload);
-      console.log(state.arrivals);
     });
     builder.addCase(fetchArrivals.rejected, (state, action: PayloadAction<string | undefined>) => {
       state.isLoading = false;

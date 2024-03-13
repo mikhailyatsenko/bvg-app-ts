@@ -1,11 +1,13 @@
 interface FilterDropdownProps {
   values: string[];
+  selectValue: string;
   onSelect: (value: string) => void;
 }
 
-const FilterDropdown: React.FC<FilterDropdownProps> = ({ values, onSelect }) => {
+const FilterDropdown: React.FC<FilterDropdownProps> = ({ values, selectValue, onSelect }) => {
   return (
     <select
+      value={selectValue}
       onChange={(e) => {
         onSelect(e.target.value);
       }}

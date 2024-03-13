@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { fetchArrivals } from "features/LoadArrivals/model/services/fetchArrivals";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getStopNameById } from "features/LoadArrivals/utils/getStopNameById/getStopNameById";
+import { getFilteredArrivals } from "features/FilterArrivals/model/selectors/getFilteredArrivals";
+import { getIsFiltered } from "features/FilterArrivals/model/selectors/getIsFiltered";
 
 interface LocationState {
   stopName?: string;
@@ -18,6 +20,8 @@ export const ArrivalsTable: React.FC = () => {
   const location = useLocation();
 
   const arrivals = useSelector(getArrivals);
+  const isFiltered = useSelector(getIsFiltered);
+  const filteredArrivals = useSelector(getFilteredArrivals);
   const selectedStop = useSelector(getSelectedStop);
 
   const stopId = searchParams.get("id");
@@ -36,25 +40,23 @@ export const ArrivalsTable: React.FC = () => {
 
   useEffect(() => {
     const arrivalsData = async () => {
-      const arrivalsData = await dispatch(fetchArrivals(selectedStop.id));
-      console.log(arrivalsData);
+      await dispatch(fetchArrivals(selectedStop.id));
     };
 
     if (selectedStop.id.length) {
-      console.log(selectedStop.id);
       arrivalsData().catch((e) => {
         console.error("Error occurred during fetchArrivals: ", e);
       });
     }
   }, [dispatch, selectedStop.id]);
-
+  console.log(isFiltered);
   return (
     <>
       <div className="arrivals-section">
         <h2 className="">{selectedStop.name}</h2>
 
         <div className="arrivals">
-          {arrivals.map((arrival, index) => (
+          {(isFiltered ? filteredArrivals : arrivals).map((arrival, index) => (
             <div className="arrivals__line" key={index}>
               <div className="arrivals__item">{arrival.type}</div>
               <div className="arrivals__item">{arrival.routeNumber}</div>
