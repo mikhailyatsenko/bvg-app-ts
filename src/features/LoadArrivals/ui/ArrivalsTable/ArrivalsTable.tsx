@@ -7,8 +7,9 @@ import { useEffect } from "react";
 import { fetchArrivals } from "features/LoadArrivals/model/services/fetchArrivals";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getStopNameById } from "features/LoadArrivals/utils/getStopNameById/getStopNameById";
-import { getFilteredArrivals } from "features/FilterArrivals/model/selectors/getFilteredArrivals";
-import { getIsFiltered } from "features/FilterArrivals/model/selectors/getIsFiltered";
+import { getFilteredArrivals } from "features/Filters/model/selectors/getFilteredArrivals";
+import { getIsFiltered } from "features/Filters/model/selectors/getIsFiltered";
+import { getIntervalArrivals } from "features/Filters/model/selectors/getIntervalArrivals";
 
 interface LocationState {
   stopName?: string;
@@ -23,7 +24,7 @@ export const ArrivalsTable: React.FC = () => {
   const isFiltered = useSelector(getIsFiltered);
   const filteredArrivals = useSelector(getFilteredArrivals);
   const selectedStop = useSelector(getSelectedStop);
-
+  const intervalArrivals = useSelector(getIntervalArrivals);
   const stopId = searchParams.get("id");
   const { stopName }: LocationState = location.state ?? { stopName: undefined };
 
@@ -40,7 +41,7 @@ export const ArrivalsTable: React.FC = () => {
 
   useEffect(() => {
     const arrivalsData = async () => {
-      await dispatch(fetchArrivals(selectedStop.id));
+      await dispatch(fetchArrivals({ stopId: selectedStop.id, intervalArrivals }));
     };
 
     if (selectedStop.id.length) {
@@ -48,8 +49,8 @@ export const ArrivalsTable: React.FC = () => {
         console.error("Error occurred during fetchArrivals: ", e);
       });
     }
-  }, [dispatch, selectedStop.id]);
-  console.log(isFiltered);
+  }, [dispatch, intervalArrivals, selectedStop.id]);
+
   return (
     <>
       <div className="arrivals-section">

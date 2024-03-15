@@ -19,12 +19,17 @@ export interface ArivalsRawData {
   }>;
 }
 
-export const fetchArrivals = createAsyncThunk<ArivalsRawData, string, { rejectValue: string }>(
+interface FetchArrivalsParameters {
+  stopId: string;
+  intervalArrivals: string;
+}
+
+export const fetchArrivals = createAsyncThunk<ArivalsRawData, FetchArrivalsParameters, { rejectValue: string }>(
   "arrivals/fetchByStopId",
-  async (stopId: string, thunkAPI) => {
+  async (parameters, thunkAPI) => {
     try {
       const response = await axios.get<ArivalsRawData>(
-        `https://v6.bvg.transport.rest/stops/${stopId}/arrivals?duration=10`
+        `https://v6.bvg.transport.rest/stops/${parameters.stopId}/arrivals?duration=${parameters.intervalArrivals}`
       );
 
       //   localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(response.data)); possible to make "recently searched in ls"

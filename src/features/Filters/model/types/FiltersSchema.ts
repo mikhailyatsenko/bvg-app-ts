@@ -1,13 +1,14 @@
 import { type Arrivals } from "features/LoadArrivals";
 
-export interface Filters {
+export interface ArrivalsFilters {
   type: string;
   routeNumber: string;
   destination: string;
 }
 
-export interface FilterArrivalsSchema {
+export interface FiltersSchema {
   isFiltered: boolean;
-  filters: Filters;
+  arrivalsFilters: ArrivalsFilters;
+  intervalArrivals: string;
   filteredArrivals: Arrivals;
 }

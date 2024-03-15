@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { type FilterArrivalsSchema, type Filters } from "../types/FilterArrivalsSchema";
+import { type FiltersSchema, type ArrivalsFilters } from "../types/FiltersSchema";
 import { type PayloadAction } from "@reduxjs/toolkit";
 import { type Arrivals } from "features/LoadArrivals";
 
-const initialState: FilterArrivalsSchema = {
+const initialState: FiltersSchema = {
   isFiltered: false,
-  filters: { destination: "", routeNumber: "", type: "" },
+  arrivalsFilters: { destination: "", routeNumber: "", type: "" },
+  intervalArrivals: "15",
   filteredArrivals: [],
 };
 
@@ -16,12 +17,15 @@ export const filterArrilavsSlice = createSlice({
     setIsFiltered: (state, action: PayloadAction<boolean>) => {
       state.isFiltered = action.payload;
     },
-    setFilters: (state, action: PayloadAction<Filters>) => {
-      state.filters = action.payload;
+    setFilters: (state, action: PayloadAction<ArrivalsFilters>) => {
+      state.arrivalsFilters = action.payload;
+    },
+    setIntervalArrivals: (state, action: PayloadAction<string>) => {
+      state.intervalArrivals = action.payload;
     },
     setFilteredArrivals: (state, action: PayloadAction<Arrivals>) => {
       state.filteredArrivals = action.payload;
     },
   },
 });
-export const { actions: filterArrilavsActions, reducer: filterArrilavsReducer } = filterArrilavsSlice;
+export const { actions: filtersActions, reducer: filtersReducer } = filterArrilavsSlice;

@@ -1,10 +1,10 @@
-import { FilterArrivals } from "features/FilterArrivals";
 import { ArrivalsTable } from "features/LoadArrivals";
+import { CombinedFilters } from "widgets/CombinedFilters";
 
 const ArrivalsPage = () => {
   return (
     <>
-      <FilterArrivals />
+      <CombinedFilters />
       <ArrivalsTable />
     </>
   );

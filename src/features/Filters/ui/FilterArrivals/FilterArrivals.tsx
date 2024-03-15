@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
 import { getArrivals } from "features/LoadArrivals";
 import { useEffect, useState } from "react";
-import FilterDropdown from "../FilterDropdown/FilterDropdown";
+import { FilterDropdown } from "entities/FilterDropdown";
 import { type Arrivals, type Arrival } from "features/LoadArrivals/model/types/ArrivalsSchema";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { type Filters } from "../../model/types/FilterArrivalsSchema";
-import { getFilters } from "features/FilterArrivals";
-import { filterArrilavsActions } from "features/FilterArrivals/model/slice/filterArrilavsSlice";
-import { getFilteredArrivals } from "features/FilterArrivals/model/selectors/getFilteredArrivals";
-import { getIsFiltered } from "features/FilterArrivals/model/selectors/getIsFiltered";
+import { type ArrivalsFilters } from "../../model/types/FiltersSchema";
+import { getArrivalsFilters } from "features/Filters";
+import { filtersActions } from "features/Filters/model/slice/filterSlice";
+import { getFilteredArrivals } from "features/Filters/model/selectors/getFilteredArrivals";
+import { getIsFiltered } from "features/Filters/model/selectors/getIsFiltered";
 
 export interface FilterPatameters {
   types: string[];
@@ -21,16 +21,12 @@ export const FilterArrivals = () => {
   const isFiltered = useSelector(getIsFiltered);
   const arrivals = useSelector(getArrivals);
   const filteredArrivals = useSelector(getFilteredArrivals);
-  const filters = useSelector(getFilters);
+  const filters = useSelector(getArrivalsFilters);
   const [filterParameters, setFilterParameters] = useState<FilterPatameters>({
     types: [],
     routeNumbers: [],
     destinations: [],
   });
-
-  useEffect(() => {
-    dispatch(filterArrilavsActions.setIsFiltered(Object.values(filters).some((value) => value !== "")));
-  }, [dispatch, filters]);
 
   useEffect(() => {
     const generateFilterParameters = (currentArrivals: Arrivals) => {
@@ -52,10 +48,9 @@ export const FilterArrivals = () => {
 
   useEffect(() => {
     const applyFilters = (arrival: Arrival) => {
-      const filterKeys = Object.keys(filters) as Array<keyof Filters>;
-      return filterKeys.every((key: keyof Filters) => {
+      const filterKeys = Object.keys(filters) as Array<keyof ArrivalsFilters>;
+      return filterKeys.every((key: keyof ArrivalsFilters) => {
         if (!filters[key]) {
-          console.log("filter[key]", filters[key], "return true");
           return true;
         }
         return arrival[key] === filters[key];
@@ -65,13 +60,15 @@ export const FilterArrivals = () => {
     const filtered = arrivals.filter(applyFilters);
 
     if (JSON.stringify(filtered) !== JSON.stringify(arrivals)) {
-      dispatch(filterArrilavsActions.setFilteredArrivals(filtered));
+      dispatch(filtersActions.setFilteredArrivals(filtered));
+      dispatch(filtersActions.setIsFiltered(true));
+    } else {
+      dispatch(filtersActions.setIsFiltered(false));
     }
   }, [arrivals, dispatch, filters]);
 
   return (
     <div>
-      <h2>Filters:</h2>
       <div>
         <label>Type:</label>
         <FilterDropdown
@@ -79,8 +76,8 @@ export const FilterArrivals = () => {
           selectValue={filters.type ?? ""}
           onSelect={(value) => {
             if (value === "") {
-              dispatch(filterArrilavsActions.setFilters({ ...filters, type: "" }));
-            } else dispatch(filterArrilavsActions.setFilters({ ...filters, type: value }));
+              dispatch(filtersActions.setFilters({ ...filters, type: "" }));
+            } else dispatch(filtersActions.setFilters({ ...filters, type: value }));
           }}
         />
       </div>
@@ -91,21 +88,20 @@ export const FilterArrivals = () => {
           values={filterParameters.routeNumbers}
           onSelect={(value) => {
             if (value === "") {
-              dispatch(filterArrilavsActions.setFilters({ ...filters, routeNumber: "" }));
-            } else dispatch(filterArrilavsActions.setFilters({ ...filters, routeNumber: value }));
+              dispatch(filtersActions.setFilters({ ...filters, routeNumber: "" }));
+            } else dispatch(filtersActions.setFilters({ ...filters, routeNumber: value }));
           }}
         />
       </div>
       <div>
         <label>Destination:</label>
-
         <FilterDropdown
           selectValue={filters.destination ?? ""}
           values={filterParameters.destinations}
           onSelect={(value) => {
             if (value === "") {
-              dispatch(filterArrilavsActions.setFilters({ ...filters, destination: "" }));
-            } else dispatch(filterArrilavsActions.setFilters({ ...filters, destination: value }));
+              dispatch(filtersActions.setFilters({ ...filters, destination: "" }));
+            } else dispatch(filtersActions.setFilters({ ...filters, destination: value }));
           }}
         />
       </div>

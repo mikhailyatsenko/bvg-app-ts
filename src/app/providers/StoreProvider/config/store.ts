@@ -3,7 +3,7 @@ import { type StateSchema } from "./StateSchema";
 import { stopsReducer } from "entities/Stops";
 import { stopSearchReducer } from "features/StopSearch";
 import { arrivalsReducer } from "features/LoadArrivals/model/slice/arrivalsSlice";
-import { filterArrilavsReducer } from "features/FilterArrivals/model/slice/filterArrilavsSlice";
+import { filtersReducer } from "features/Filters/model/slice/filterSlice";
 
 export function createReduxStore(initalState?: StateSchema) {
   return configureStore<StateSchema>({
@@ -11,7 +11,7 @@ export function createReduxStore(initalState?: StateSchema) {
       stops: stopsReducer,
       search: stopSearchReducer,
       arrivals: arrivalsReducer,
-      filters: filterArrilavsReducer,
+      filters: filtersReducer,
     },
     // devTools: __IS_DEV__,
     preloadedState: initalState,

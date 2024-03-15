@@ -1,10 +1,10 @@
-interface FilterDropdownProps {
-  values: string[];
+interface IntervalArrivalsProps {
   selectValue: string;
   onSelect: (value: string) => void;
+  values: string[];
 }
 
-const FilterDropdown: React.FC<FilterDropdownProps> = ({ values, selectValue, onSelect }) => {
+export const IntervalDropdown = ({ onSelect, selectValue, values }: IntervalArrivalsProps) => {
   return (
     <select
       value={selectValue}
@@ -12,7 +12,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({ values, selectValue, on
         onSelect(e.target.value);
       }}
     >
-      <option value="">All</option>
+      {/* <option value="">All</option> */}
       {values.map((value, index) => (
         <option key={index} value={value}>
           {value}
@@ -21,5 +21,3 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({ values, selectValue, on
     </select>
   );
 };
-
-export default FilterDropdown;
