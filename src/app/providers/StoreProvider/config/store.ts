@@ -4,6 +4,7 @@ import { stopsReducer } from "entities/Stops";
 import { stopSearchReducer } from "features/StopSearch";
 import { arrivalsReducer } from "features/LoadArrivals/model/slice/arrivalsSlice";
 import { filtersReducer } from "features/Filters/model/slice/filterSlice";
+import { addToFavoritesReducer } from "features/AddToFavorites/model/slice/addToFavoritesSlice";
 
 export function createReduxStore(initalState?: StateSchema) {
   return configureStore<StateSchema>({
@@ -12,6 +13,7 @@ export function createReduxStore(initalState?: StateSchema) {
       search: stopSearchReducer,
       arrivals: arrivalsReducer,
       filters: filtersReducer,
+      favorites: addToFavoritesReducer,
     },
     // devTools: __IS_DEV__,
     preloadedState: initalState,

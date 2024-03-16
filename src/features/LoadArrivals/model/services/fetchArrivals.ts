@@ -32,7 +32,7 @@ export const fetchArrivals = createAsyncThunk<ArivalsRawData, FetchArrivalsParam
         `https://v6.bvg.transport.rest/stops/${parameters.stopId}/arrivals?duration=${parameters.intervalArrivals}`
       );
 
-      //   localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(response.data)); possible to make "recently searched in ls"
+      // localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(response.data)); possible to make "recently searched in ls"
       //   thunkAPI.dispatch(userActions.setAuthData(response.data));
       return response.data;
     } catch (e) {

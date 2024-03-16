@@ -1,4 +1,3 @@
-// import FiltersOnArrivalPage from "./FiltersOnArrivalPage";
 import { useSelector } from "react-redux";
 import { getArrivals } from "features/LoadArrivals";
 import { getSelectedStop, stopsActions } from "entities/Stops";
@@ -10,12 +9,13 @@ import { getStopNameById } from "features/LoadArrivals/utils/getStopNameById/get
 import { getFilteredArrivals } from "features/Filters/model/selectors/getFilteredArrivals";
 import { getIsFiltered } from "features/Filters/model/selectors/getIsFiltered";
 import { getIntervalArrivals } from "features/Filters/model/selectors/getIntervalArrivals";
+import { ArrivalsTable } from "entities/ArrivalsTable";
 
 interface LocationState {
   stopName?: string;
 }
 
-export const ArrivalsTable: React.FC = () => {
+export const DisplayArrivals: React.FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const location = useLocation();
@@ -53,21 +53,7 @@ export const ArrivalsTable: React.FC = () => {
 
   return (
     <>
-      <div className="arrivals-section">
-        <h2 className="">{selectedStop.name}</h2>
-
-        <div className="arrivals">
-          {(isFiltered ? filteredArrivals : arrivals).map((arrival, index) => (
-            <div className="arrivals__line" key={index}>
-              <div className="arrivals__item">{arrival.type}</div>
-              <div className="arrivals__item">{arrival.routeNumber}</div>
-              <div className="arrivals__item">{arrival.destination}</div>
-              <div className="arrivals__item">{arrival.time.slice(11, 16)}</div>
-              {/* <div className={`arrivals__item arrivals__item--${beIn[index]}`}>{beIn[index]}</div> */}
-            </div>
-          ))}
-        </div>
-      </div>
+      <ArrivalsTable arrivals={isFiltered ? filteredArrivals : arrivals} stopName={selectedStop.name} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import stopsListData from "assets/data/stopsList.json";
+import stopsListData from "shared/assets/data/stopsList.json";
 import { stopsActions, type Stop } from "..";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
