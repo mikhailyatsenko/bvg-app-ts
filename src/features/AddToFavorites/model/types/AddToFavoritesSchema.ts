@@ -1,4 +1,4 @@
-import { type Stop } from "entities/Stops";
+import { type Stop } from "features/Stops";
 
 export interface AddToFavoritesSchema {
   favoriteStops: Stop[];

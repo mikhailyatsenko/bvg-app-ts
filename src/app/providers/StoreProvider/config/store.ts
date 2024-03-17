@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { type StateSchema } from "./StateSchema";
-import { stopsReducer } from "entities/Stops";
+import { stopsReducer } from "features/Stops";
 import { stopSearchReducer } from "features/StopSearch";
 import { arrivalsReducer } from "features/LoadArrivals/model/slice/arrivalsSlice";
 import { filtersReducer } from "features/Filters/model/slice/filterSlice";

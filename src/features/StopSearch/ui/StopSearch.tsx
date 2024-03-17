@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { getSearchValue, stopSearchActions } from "..";
+import { SearchInput } from "entities/SearchInput";
 
 export const StopSearch = () => {
   const dispatch = useAppDispatch();
@@ -12,19 +13,7 @@ export const StopSearch = () => {
   };
   return (
     <div className="search-form">
-      <input
-        className={
-          "search-form__input" +
-          // selectedStop &&
-          " search-form__input--small"
-        }
-        type="text"
-        value={searchValue}
-        placeholder="type stop name here..."
-        onChange={(e) => {
-          onChangeInput(e);
-        }}
-      />
+      <SearchInput onChangeInput={onChangeInput} searchValue={searchValue} />
     </div>
   );
 };

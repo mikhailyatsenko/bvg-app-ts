@@ -1,5 +1,6 @@
 import { type Arrivals } from "features/LoadArrivals";
 import { calculateMinutesUntilArrival } from "../utils/calculateMinutesUntilArrival/calculateMinutesUntilArrival";
+import { useEffect, useState } from "react";
 
 interface ArrivalsTableProps {
   stopName: string;
@@ -7,7 +8,19 @@ interface ArrivalsTableProps {
 }
 
 export const ArrivalsTable = ({ arrivals, stopName }: ArrivalsTableProps) => {
-  const remainingTimeArray = calculateMinutesUntilArrival(arrivals);
+  const [remainingTimeArray, setRemainingTimeArray] = useState<number[]>([]);
+
+  useEffect(() => {
+    setRemainingTimeArray(calculateMinutesUntilArrival(arrivals));
+
+    const intervalId = setInterval(() => {
+      setRemainingTimeArray(calculateMinutesUntilArrival(arrivals));
+    }, 30000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [arrivals]);
 
   function formatRemainingTime(minutes: number) {
     if (minutes <= -2) {

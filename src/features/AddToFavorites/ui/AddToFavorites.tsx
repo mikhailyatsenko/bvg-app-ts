@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { addToFavoritesActions } from "../model/slice/addToFavoritesSlice";
 import { getFavoritesStops } from "../model/selectors/getFavoritesStops/getFavoritesStops";
-import { getSelectedStop } from "entities/Stops";
+import { getSelectedStop } from "features/Stops";
 import { AddToFavButton } from "entities/AddToFavButton";
 
 export const AddToFavorites: React.FC = () => {

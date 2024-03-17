@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { type Stop } from "entities/Stops";
+import { type Stop } from "features/Stops";
 import { type AddToFavoritesSchema } from "../types/AddToFavoritesSchema";
 
 const initialState: AddToFavoritesSchema = {

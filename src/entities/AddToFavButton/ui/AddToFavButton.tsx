@@ -1,8 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference types="vite-plugin-svgr/client" />
-import FavoriteIconEmpty from "shared/assets/icons/favorite-empty.svg?react";
-import FavoriteIconFilled from "shared/assets/icons/favorite-filled.svg?react";
-
 interface AddToFavButtonProps {
   handleFavoriteToggle: () => void;
   isFavorite: boolean;

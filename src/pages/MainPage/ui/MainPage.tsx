@@ -1,4 +1,4 @@
-import { Stops } from "entities/Stops";
+import { Stops } from "features/Stops";
 import { StopSearch } from "features/StopSearch";
 
 const MainPage = () => {

@@ -6,13 +6,14 @@ import { getStopsToRender } from "..";
 import { getSearchValue } from "features/StopSearch";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { CardWithStopName } from "entities/CardWithStopName";
+import cls from "./Stops.module.scss";
 
 export const Stops: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const stopsToRender = useSelector(getStopsToRender);
   const searchValue = useSelector(getSearchValue);
-  console.log(stopsToRender);
 
   useEffect(() => {
     dispatch(
@@ -31,18 +32,10 @@ export const Stops: React.FC = () => {
   };
 
   return (
-    <>
+    <div className={cls.Stops}>
       {stopsToRender.map((stop) => (
-        <div
-          className="btn btn--velvet"
-          key={stop.id}
-          onClick={() => {
-            selectStopHandler({ id: stop.id, name: stop.name });
-          }}
-        >
-          {stop.name}
-        </div>
+        <CardWithStopName key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
       ))}
-    </>
+    </div>
   );
 };

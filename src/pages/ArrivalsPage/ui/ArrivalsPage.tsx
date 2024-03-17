@@ -1,5 +1,5 @@
 import { AddToFavorites } from "features/AddToFavorites";
-import { DisplayArrivals, getIsLoading } from "features/LoadArrivals";
+import { DisplayArrivals } from "features/LoadArrivals";
 import { CombinedFilters } from "widgets/CombinedFilters";
 
 const ArrivalsPage = () => {

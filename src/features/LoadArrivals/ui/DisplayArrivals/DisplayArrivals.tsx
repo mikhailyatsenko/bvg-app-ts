@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { getArrivals, getIsLoading } from "features/LoadArrivals";
-import { getSelectedStop, stopsActions } from "entities/Stops";
+import { getSelectedStop, stopsActions } from "features/Stops";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { useEffect } from "react";
 import { fetchArrivals } from "features/LoadArrivals/model/services/fetchArrivals";
