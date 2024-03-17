@@ -2,15 +2,17 @@ import { useSelector } from "react-redux";
 import { getArrivals, getIsLoading } from "features/LoadArrivals";
 import { getSelectedStop, stopsActions } from "features/Stops";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchArrivals } from "features/LoadArrivals/model/services/fetchArrivals";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getStopNameById } from "features/LoadArrivals/utils/getStopNameById/getStopNameById";
 import { getFilteredArrivals } from "features/Filters/model/selectors/getFilteredArrivals";
 import { getIsFiltered } from "features/Filters/model/selectors/getIsFiltered";
 import { getIntervalArrivals } from "features/Filters/model/selectors/getIntervalArrivals";
-import { ArrivalsTable } from "entities/ArrivalsTable";
+import { ArrivalsLine } from "entities/ArrivalsTable";
 import { Loader } from "shared/ui/Loader/Loader";
+import { calculateMinutesUntilArrival } from "../utils/calculateMinutesUntilArrival/calculateMinutesUntilArrival";
+import cls from "./DisplayArrivals.module.scss";
 
 interface LocationState {
   stopName?: string;
@@ -28,6 +30,8 @@ export const DisplayArrivals: React.FC = () => {
   const intervalArrivals = useSelector(getIntervalArrivals);
   const stopId = searchParams.get("id");
   const { stopName }: LocationState = location.state ?? { stopName: undefined };
+
+  const [remainingTimeArray, setRemainingTimeArray] = useState<number[]>([]);
 
   useEffect(() => {
     if (stopId !== null) {
@@ -52,13 +56,46 @@ export const DisplayArrivals: React.FC = () => {
     }
   }, [dispatch, intervalArrivals, selectedStop.id]);
 
+  useEffect(() => {
+    setRemainingTimeArray(calculateMinutesUntilArrival(arrivals));
+
+    const intervalId = setInterval(() => {
+      setRemainingTimeArray(calculateMinutesUntilArrival(arrivals));
+    }, 30000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [arrivals]);
+
   return (
-    <>
+    <section className={cls.DisplayArrivals}>
+      <h2 className="">{stopName}</h2>
+
+      {/* <div className="arrivals"> */}
       {isLoading ? (
         <Loader />
       ) : (
-        <ArrivalsTable arrivals={isFiltered ? filteredArrivals : arrivals} stopName={selectedStop.name} />
+        <>
+          <div className={cls.headingLine}>
+            <div className={cls.headingLineItem}>Type of transport</div>
+            <div className={cls.headingLineItem}>Route number</div>
+            <div className={cls.headingLineItem}>Destination</div>
+            <div className={cls.headingLineItem}>Arrival time</div>
+            <div className={cls.headingLineItem}>Be in</div>
+          </div>
+          {(isFiltered ? filteredArrivals : arrivals).map((arrival, index) => (
+            <ArrivalsLine
+              key={index}
+              destination={arrival.destination}
+              remainingTime={remainingTimeArray[index]}
+              routeNumber={arrival.routeNumber}
+              time={arrival.time}
+              transportType={arrival.type}
+            />
+          ))}
+        </>
       )}
-    </>
+    </section>
   );
 };

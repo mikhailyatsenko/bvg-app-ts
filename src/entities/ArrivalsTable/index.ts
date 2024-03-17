@@ -1,1 +1,1 @@
-export { ArrivalsTable } from "./ui/ArrivalsTable";
+export { ArrivalsLine } from "./ui/ArrivalsLine";
