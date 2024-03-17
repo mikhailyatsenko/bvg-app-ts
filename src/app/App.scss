@@ -163,17 +163,90 @@ main {
 }
 
 .arrivals-section__add-to-fav {
+  background-image: url("/src/shared/assets/icons/favorite-empty.svg");
+  background-repeat: no-repeat;
+  background-position: top center;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
   text-align: center;
-  font-size: 12px;
-  width: 50 px;
   color: #787878;
-  &:hover {
-    .material-symbols-outlined.fav {
-      color: #f15bb5;
-    }
+  font-size: 12px;
+  height: 38px;
+
+  &.filled {
+    background-image: url("/src/shared/assets/icons/favorite-filled.svg");
   }
-  &:has(.filled) {
-    color: #f15bb5;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 140%;
+    height: 100%;
+    left: -20%;
+    z-index: -1000;
+    transition: all ease-in-out 0.5s;
+    background-repeat: no-repeat;
+  }
+
+  &:before {
+    display: none;
+    top: -75%;
+    background-image: radial-gradient(circle, #f15bb5 20%, transparent 20%),
+      radial-gradient(circle, transparent 20%, #f15bb5 20%, transparent 30%),
+      radial-gradient(circle, #f15bb5 20%, transparent 20%), radial-gradient(circle, #f15bb5 20%, transparent 20%),
+      radial-gradient(circle, transparent 10%, #f15bb5 15%, transparent 20%),
+      radial-gradient(circle, #f15bb5 20%, transparent 20%), radial-gradient(circle, #f15bb5 20%, transparent 20%),
+      radial-gradient(circle, #f15bb5 20%, transparent 20%), radial-gradient(circle, #f15bb5 20%, transparent 20%);
+    background-size:
+      10% 10%,
+      20% 20%,
+      15% 15%,
+      20% 20%,
+      18% 18%,
+      10% 10%,
+      15% 15%,
+      10% 10%,
+      18% 18%;
+  }
+
+  &:after {
+    display: none;
+    bottom: -75%;
+    background-image: radial-gradient(circle, #f15bb5 20%, transparent 20%),
+      radial-gradient(circle, #f15bb5 20%, transparent 20%),
+      radial-gradient(circle, transparent 10%, #f15bb5 15%, transparent 20%),
+      radial-gradient(circle, #f15bb5 20%, transparent 20%), radial-gradient(circle, #f15bb5 20%, transparent 20%),
+      radial-gradient(circle, #f15bb5 20%, transparent 20%), radial-gradient(circle, #f15bb5 20%, transparent 20%);
+    background-size:
+      15% 15%,
+      20% 20%,
+      18% 18%,
+      20% 20%,
+      15% 15%,
+      10% 10%,
+      20% 20%;
+  }
+
+  &:active {
+    background-size: 22px;
+  }
+
+  &.animate {
+    &:before {
+      display: block;
+      animation: topBubbles ease-in-out 0.75s forwards;
+    }
+    &:after {
+      display: block;
+      animation: bottomBubbles ease-in-out 0.75s forwards;
+    }
   }
 }
 
@@ -230,95 +303,6 @@ main {
   .material-symbols-outlined {
     vertical-align: bottom;
     font-size: 20px;
-  }
-}
-
-.material-symbols-outlined.fav {
-  font-variation-settings:
-    "FILL" 0,
-    "wght" 400,
-    "GRAD" 0,
-    "opsz" 48;
-  color: #787878;
-
-  &.filled {
-    font-variation-settings: "FILL" 1;
-    color: #f15bb5;
-  }
-  &:focus {
-    outline: 0;
-  }
-
-  &:before,
-  &:after {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 140%;
-    height: 100%;
-    left: -20%;
-    z-index: -1000;
-    transition: all ease-in-out 0.5s;
-    background-repeat: no-repeat;
-  }
-
-  &:before {
-    display: none;
-    top: -75%;
-    background-image: radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, transparent 20%, #f15bb5 20%, transparent 30%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, transparent 10%, #f15bb5 15%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%);
-    background-size:
-      10% 10%,
-      20% 20%,
-      15% 15%,
-      20% 20%,
-      18% 18%,
-      10% 10%,
-      15% 15%,
-      10% 10%,
-      18% 18%;
-  }
-
-  &:after {
-    display: none;
-    bottom: -75%;
-    background-image: radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, transparent 10%, #f15bb5 15%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%),
-      radial-gradient(circle, #f15bb5 20%, transparent 20%);
-    background-size:
-      15% 15%,
-      20% 20%,
-      18% 18%,
-      20% 20%,
-      15% 15%,
-      10% 10%,
-      20% 20%;
-  }
-
-  &:active {
-    transform: scale(0.9);
-  }
-
-  &.animate {
-    &:before {
-      display: block;
-      animation: topBubbles ease-in-out 0.75s forwards;
-    }
-    &:after {
-      display: block;
-      animation: bottomBubbles ease-in-out 0.75s forwards;
-    }
   }
 }
 

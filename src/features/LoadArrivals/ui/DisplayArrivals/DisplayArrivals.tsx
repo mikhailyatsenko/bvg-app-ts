@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { getArrivals } from "features/LoadArrivals";
+import { getArrivals, getIsLoading } from "features/LoadArrivals";
 import { getSelectedStop, stopsActions } from "entities/Stops";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { useEffect } from "react";
@@ -10,6 +10,7 @@ import { getFilteredArrivals } from "features/Filters/model/selectors/getFiltere
 import { getIsFiltered } from "features/Filters/model/selectors/getIsFiltered";
 import { getIntervalArrivals } from "features/Filters/model/selectors/getIntervalArrivals";
 import { ArrivalsTable } from "entities/ArrivalsTable";
+import { Loader } from "shared/ui/Loader/Loader";
 
 interface LocationState {
   stopName?: string;
@@ -19,7 +20,7 @@ export const DisplayArrivals: React.FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const location = useLocation();
-
+  const isLoading = useSelector(getIsLoading);
   const arrivals = useSelector(getArrivals);
   const isFiltered = useSelector(getIsFiltered);
   const filteredArrivals = useSelector(getFilteredArrivals);
@@ -53,7 +54,11 @@ export const DisplayArrivals: React.FC = () => {
 
   return (
     <>
-      <ArrivalsTable arrivals={isFiltered ? filteredArrivals : arrivals} stopName={selectedStop.name} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ArrivalsTable arrivals={isFiltered ? filteredArrivals : arrivals} stopName={selectedStop.name} />
+      )}
     </>
   );
 };

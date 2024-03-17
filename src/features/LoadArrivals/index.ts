@@ -2,3 +2,4 @@ export type { Arrival, Arrivals, ArrivalsSchema } from "./model/types/ArrivalsSc
 
 export { getArrivals } from "./model/selectors/getArrivals/getArrivals";
 export { DisplayArrivals } from "./ui/DisplayArrivals/DisplayArrivals";
+export { getIsLoading } from "./model/selectors/getIsLoading/getIsLoading";
