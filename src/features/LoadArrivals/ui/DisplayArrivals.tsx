@@ -9,10 +9,11 @@ import { getStopNameById } from "features/LoadArrivals/utils/getStopNameById/get
 import { getFilteredArrivals } from "features/Filters/model/selectors/getFilteredArrivals";
 import { getIsFiltered } from "features/Filters/model/selectors/getIsFiltered";
 import { getIntervalArrivals } from "features/Filters/model/selectors/getIntervalArrivals";
-import { ArrivalsLine } from "entities/ArrivalsTable";
+import { ArrivalsLine } from "entities/ArrivalsLine";
 import { Loader } from "shared/ui/Loader/Loader";
 import { calculateMinutesUntilArrival } from "../utils/calculateMinutesUntilArrival/calculateMinutesUntilArrival";
 import cls from "./DisplayArrivals.module.scss";
+import { SetIntervalArrivals } from "features/Filters";
 
 interface LocationState {
   stopName?: string;
@@ -70,16 +71,15 @@ export const DisplayArrivals: React.FC = () => {
 
   return (
     <section className={cls.DisplayArrivals}>
-      <h2 className="">{stopName}</h2>
-
-      {/* <div className="arrivals"> */}
+      <h3 className={cls.stopName}>{stopName}</h3>
+      <SetIntervalArrivals />
       {isLoading ? (
         <Loader />
       ) : (
         <>
           <div className={cls.headingLine}>
-            <div className={cls.headingLineItem}>Type of transport</div>
-            <div className={cls.headingLineItem}>Route number</div>
+            <div className={`${cls.headingLineItem}`}>Route</div>
+            <div className={`${cls.headingLineItem} ${cls.routeNumberDesktop}`}>Route number</div>
             <div className={cls.headingLineItem}>Destination</div>
             <div className={cls.headingLineItem}>Arrival time</div>
             <div className={cls.headingLineItem}>Be in</div>

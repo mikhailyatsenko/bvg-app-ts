@@ -1,10 +1,9 @@
-import { FilterArrivals, SetIntervalArrivals } from "features/Filters";
+import { FilterArrivals } from "features/Filters";
 
 export const CombinedFilters = () => {
   return (
     <>
       <FilterArrivals />
-      <SetIntervalArrivals />
     </>
   );
 };

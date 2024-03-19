@@ -1,6 +1,6 @@
 import cls from "./ArrivalsLine.module.scss";
 
-interface ArrivalsTableProps {
+interface ArrivalsLineProps {
   transportType: string;
   routeNumber: string;
   destination: string;
@@ -8,7 +8,7 @@ interface ArrivalsTableProps {
   remainingTime: number;
 }
 
-export const ArrivalsLine = ({ destination, remainingTime, routeNumber, time, transportType }: ArrivalsTableProps) => {
+export const ArrivalsLine = ({ destination, remainingTime, routeNumber, time, transportType }: ArrivalsLineProps) => {
   function formatRemainingTime(minutes: number) {
     if (minutes <= -2) {
       return "gone";
@@ -21,8 +21,10 @@ export const ArrivalsLine = ({ destination, remainingTime, routeNumber, time, tr
 
   return (
     <div className={cls.ArrivalsLine}>
-      <div className={cls.lineItem}>{transportType}</div>
-      <div className={cls.lineItem}>{routeNumber}</div>
+      <div className={cls.lineItem}>
+        {transportType} <span>{routeNumber}</span>
+      </div>
+      <div className={`${cls.lineItem} ${cls.routeNumberDesktop}`}>{routeNumber}</div>
       <div className={cls.lineItem}>{destination}</div>
       <div className={cls.lineItem}>{time.slice(11, 16)}</div>
       <div className={cls.lineItem}>{formatRemainingTime(remainingTime)}</div>

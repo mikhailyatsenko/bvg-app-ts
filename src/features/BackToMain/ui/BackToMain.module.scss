@@ -1,0 +1,17 @@
+.BackToMain {
+  background-image: url("../../../shared/assets/icons/arrow_back.svg");
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 24px;
+  width: fit-content;
+  margin: 10px auto;
+
+  &::after {
+    content: "back to main";
+    display: block;
+    padding-left: 24px;
+    height: 22px;
+  }
+}

@@ -1,29 +1,19 @@
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-
-/* Document
-   ========================================================================== */
-
-/**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
- */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
-/* Sections
-       ========================================================================== */
-
-/**
-     * Remove the margin in all browsers.
-     */
-
 body {
   margin: 0;
-  color: #303030;
   background-color: #f4f4f4;
+  color: #303030;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
 }
 
 /**
@@ -354,4 +344,66 @@ template {
 
 * {
   -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+  letter-spacing: 0.05rem;
+  outline: 0 none;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+  padding: 30px;
+}
+$height: 36;
+label {
+  position: relative;
+  display: inline-block;
+  &:before {
+    content: "";
+    height: ($height - 5) + px;
+    position: absolute;
+    right: 7px;
+    top: 3px;
+    width: 22px;
+
+    background: #fff;
+
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    pointer-events: none;
+    display: block;
+  }
+  &:after {
+    content: " ";
+    position: absolute;
+    right: 15px;
+    top: 46%;
+    margin-top: -3px;
+    z-index: 2;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6.9px 4px 0 4px;
+    border-color: #aaa transparent transparent transparent;
+    pointer-events: none;
+  }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0 30px 0 10px;
+
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    line-height: $height + px;
+    height: $height + px;
+    background: #fff;
+  }
+}
+select::-ms-expand {
+  display: none;
 }

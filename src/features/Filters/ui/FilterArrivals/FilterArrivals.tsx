@@ -9,6 +9,7 @@ import { getArrivalsFilters } from "features/Filters";
 import { filtersActions } from "features/Filters/model/slice/filterSlice";
 import { getFilteredArrivals } from "features/Filters/model/selectors/getFilteredArrivals";
 import { getIsFiltered } from "features/Filters/model/selectors/getIsFiltered";
+import cls from "./FilterArrivals.module.scss";
 
 export interface FilterPatameters {
   types: string[];
@@ -68,43 +69,37 @@ export const FilterArrivals = () => {
   }, [arrivals, dispatch, filters]);
 
   return (
-    <div>
-      <div>
-        <label>Type:</label>
-        <FilterDropdown
-          values={filterParameters.types}
-          selectValue={filters.type ?? ""}
-          onSelect={(value) => {
-            if (value === "") {
-              dispatch(filtersActions.setFilters({ ...filters, type: "" }));
-            } else dispatch(filtersActions.setFilters({ ...filters, type: value }));
-          }}
-        />
-      </div>
-      <div>
-        <label>Route Number:</label>
-        <FilterDropdown
-          selectValue={filters.routeNumber ?? ""}
-          values={filterParameters.routeNumbers}
-          onSelect={(value) => {
-            if (value === "") {
-              dispatch(filtersActions.setFilters({ ...filters, routeNumber: "" }));
-            } else dispatch(filtersActions.setFilters({ ...filters, routeNumber: value }));
-          }}
-        />
-      </div>
-      <div>
-        <label>Destination:</label>
-        <FilterDropdown
-          selectValue={filters.destination ?? ""}
-          values={filterParameters.destinations}
-          onSelect={(value) => {
-            if (value === "") {
-              dispatch(filtersActions.setFilters({ ...filters, destination: "" }));
-            } else dispatch(filtersActions.setFilters({ ...filters, destination: value }));
-          }}
-        />
-      </div>
+    <div className={cls.FilterArrivals}>
+      {/* <label>Type:</label> */}
+      <FilterDropdown
+        values={filterParameters.types}
+        selectValue={filters.type ?? ""}
+        onSelect={(value) => {
+          if (value === "") {
+            dispatch(filtersActions.setFilters({ ...filters, type: "" }));
+          } else dispatch(filtersActions.setFilters({ ...filters, type: value }));
+        }}
+      />
+      {/* <label>Route Number:</label> */}
+      <FilterDropdown
+        selectValue={filters.routeNumber ?? ""}
+        values={filterParameters.routeNumbers}
+        onSelect={(value) => {
+          if (value === "") {
+            dispatch(filtersActions.setFilters({ ...filters, routeNumber: "" }));
+          } else dispatch(filtersActions.setFilters({ ...filters, routeNumber: value }));
+        }}
+      />
+      {/* <label>Destination:</label> */}
+      <FilterDropdown
+        selectValue={filters.destination ?? ""}
+        values={filterParameters.destinations}
+        onSelect={(value) => {
+          if (value === "") {
+            dispatch(filtersActions.setFilters({ ...filters, destination: "" }));
+          } else dispatch(filtersActions.setFilters({ ...filters, destination: value }));
+        }}
+      />
     </div>
   );
 };
