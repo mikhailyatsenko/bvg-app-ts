@@ -1,3 +1,5 @@
+import cls from "./FilterDropdown.module.scss";
+
 interface FilterDropdownProps {
   values: string[];
   selectValue: string;
@@ -6,7 +8,7 @@ interface FilterDropdownProps {
 
 export const FilterDropdown: React.FC<FilterDropdownProps> = ({ values, selectValue, onSelect }) => {
   return (
-    <label>
+    <div className={cls.FilterDropdown}>
       <select
         value={selectValue}
         onChange={(e) => {
@@ -20,6 +22,6 @@ export const FilterDropdown: React.FC<FilterDropdownProps> = ({ values, selectVa
           </option>
         ))}
       </select>
-    </label>
+    </div>
   );
 };

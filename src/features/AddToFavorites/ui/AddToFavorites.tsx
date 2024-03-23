@@ -25,11 +25,5 @@ export const AddToFavorites: React.FC = () => {
     dispatch(addToFavoritesActions.initializeFavorites());
   }, [dispatch]);
 
-  return (
-    // <div>
-    //   <h3>{stop.name}</h3>
-    //   <button onClick={handleFavoriteToggle}>{isFavorite ? "❤️" : "🤍"}</button>
-    // </div>
-    <AddToFavButton handleFavoriteToggle={handleFavoriteToggle} isFavorite={isFavorite} />
-  );
+  return <AddToFavButton handleFavoriteToggle={handleFavoriteToggle} isFavorite={isFavorite} />;
 };

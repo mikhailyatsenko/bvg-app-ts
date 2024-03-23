@@ -1,14 +1,14 @@
 import { AddToFavorites } from "features/AddToFavorites";
 import { BackToMain } from "features/BackToMain";
 import { DisplayArrivals } from "features/LoadArrivals";
-import { CombinedFilters } from "widgets/CombinedFilters";
+import { FiltersPanel } from "widgets/FiltersPanel";
 
 const ArrivalsPage = () => {
   return (
     <>
+      <FiltersPanel />
       <BackToMain />
       <AddToFavorites />
-      <CombinedFilters />
       <DisplayArrivals />
     </>
   );

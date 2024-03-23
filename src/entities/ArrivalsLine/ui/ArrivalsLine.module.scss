@@ -7,10 +7,14 @@
   margin-bottom: 12px;
   border-radius: 8px;
   width: 80%;
+  @media (width <= 560px) {
+    width: 90%;
+  }
 }
 
 .lineItem {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 20%;
@@ -23,7 +27,7 @@
   //     -webkit-linear-gradient(-45deg, rgba(208, 208, 208, 0.9) 45%, rgb(255, 255, 255) 0%);
   // }
   */
-  span {
+  .routeNumberMobile {
     display: none;
     @media (width <= 480px) {
       display: inline;

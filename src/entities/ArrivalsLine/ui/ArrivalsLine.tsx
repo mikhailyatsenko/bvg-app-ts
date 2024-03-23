@@ -22,7 +22,7 @@ export const ArrivalsLine = ({ destination, remainingTime, routeNumber, time, tr
   return (
     <div className={cls.ArrivalsLine}>
       <div className={cls.lineItem}>
-        {transportType} <span>{routeNumber}</span>
+        {transportType} <div className={cls.routeNumberMobile}>{routeNumber}</div>
       </div>
       <div className={`${cls.lineItem} ${cls.routeNumberDesktop}`}>{routeNumber}</div>
       <div className={cls.lineItem}>{destination}</div>

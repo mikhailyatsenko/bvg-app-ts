@@ -1,17 +1,32 @@
+import { useState } from "react";
+import cls from "./AddToFavButton.module.scss";
+import ToastMessage from "shared/ui/ToastMessage/ToastMessage";
+import { useSelector } from "react-redux";
+import { getSelectedStop } from "features/Stops";
+
 interface AddToFavButtonProps {
   handleFavoriteToggle: () => void;
   isFavorite: boolean;
 }
 
 export const AddToFavButton = ({ handleFavoriteToggle, isFavorite }: AddToFavButtonProps) => {
+  const [toastMessage, setToastMessage] = useState("");
+  const selectedStop = useSelector(getSelectedStop);
+
+  function onClickHandler() {
+    if (!isFavorite) {
+      setToastMessage(`${selectedStop.name} added to favorites`);
+    } else setToastMessage(`${selectedStop.name} removed from favorites`);
+  }
   return (
     <div
-      className={`arrivals-section__add-to-fav drop-fav${isFavorite ? " filled animate" : ""}`}
+      className={`${cls.AddToFavButton} ${cls.dropFav} ${isFavorite ? `${cls.filled} ${cls.animate}` : ""}`}
       onClick={() => {
+        onClickHandler();
         handleFavoriteToggle();
       }}
     >
-      <div>{isFavorite ? <span style={{ color: "#f15bb5" }}>in favorites</span> : "to favorites"}</div>
+      <ToastMessage message={toastMessage} />
     </div>
   );
 };
