@@ -1,0 +1,66 @@
+.PullOutFiltersPanel {
+  position: relative;
+  background-color: #cfcfcf;
+  height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: height 400ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+  z-index: 10;
+  &.expand {
+    height: 80px;
+  }
+}
+
+.buttonExpand {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 100px;
+  width: 42px;
+  height: 42px;
+  border-radius: 0 0 6px 6px;
+  background-image: url("../../../shared/assets/icons/filters-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px;
+  background-color: #f5bd43;
+  transition: top 400ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+}
+
+.dropBtn {
+  opacity: 0;
+  animation: drop 0.4s linear forwards 0.6s;
+}
+
+.PullOutFiltersPanel.expand + .buttonExpand {
+  top: 80px;
+  transform: scaleX(-1);
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(-200px) scaleY(0.9);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(0px) scaleY(1);
+    opacity: 1;
+  }
+  65% {
+    transform: translateY(-17px) scaleY(0.9);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-22px) scaleY(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px) scaleY(1);
+    opacity: 1;
+  }
+}

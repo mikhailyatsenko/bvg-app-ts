@@ -1,0 +1,31 @@
+button {
+  appearance: none; /* Сброс стилизации элемента операционной системой */
+  background-color: transparent; /* Прозрачный фон */
+  border: none; /* Убираем границы */
+  padding: 0; /* Убираем отступы */
+  margin: 0; /* Убираем отступы */
+  font: inherit; /* Наследуем шрифт */
+  cursor: pointer; /* Изменяем курсор при наведении */
+  outline: none; /* Убираем обводку при фокусе */
+  color: inherit; /* Наследуем цвет текста */
+  text-align: inherit; /* Наследуем выравнивание текста */
+  text-decoration: none; /* Убираем подчеркивание */
+}
+
+.BackToMain {
+  background-image: url("../../../shared/assets/icons/arrow_back.svg");
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 24px;
+  width: fit-content;
+  margin: 10px;
+
+  &::after {
+    content: "back to main";
+    display: block;
+    padding-left: 24px;
+    height: 22px;
+  }
+}
