@@ -27,7 +27,7 @@ export const SearchInput = ({ onChangeInput, searchValue }: SearchInputProps) =>
         }}
       />
       <label htmlFor="name" className={cls.formLabel}>
-        Type here to serch station
+        Type here to search station
       </label>
     </div>
   );
