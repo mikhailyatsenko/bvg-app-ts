@@ -58,16 +58,17 @@ export const DisplayArrivals: React.FC = () => {
   }, [dispatch, intervalArrivals, selectedStop.id]);
 
   useEffect(() => {
-    setRemainingTimeArray(calculateMinutesUntilArrival(arrivals));
+    const currentArrivals = isFiltered ? filteredArrivals : arrivals;
+    setRemainingTimeArray(calculateMinutesUntilArrival(currentArrivals));
 
     const intervalId = setInterval(() => {
-      setRemainingTimeArray(calculateMinutesUntilArrival(arrivals));
+      setRemainingTimeArray(calculateMinutesUntilArrival(currentArrivals));
     }, 30000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [arrivals]);
+  }, [arrivals, filteredArrivals, isFiltered]);
 
   return (
     <section className={cls.DisplayArrivals}>
