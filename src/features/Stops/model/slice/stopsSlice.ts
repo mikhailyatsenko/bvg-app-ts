@@ -20,6 +20,9 @@ export const stopListSlice = createSlice({
     setSelectedStopId: (state, action: PayloadAction<string>) => {
       state.selectedStop.id = action.payload;
     },
+    resetSelectedStop: (state) => {
+      state.selectedStop = initialState.selectedStop;
+    },
   },
 });
 

@@ -60,18 +60,17 @@ export const FilterArrivals = () => {
 
     const filtered = arrivals.filter(applyFilters);
 
-    if (JSON.stringify(filtered) !== JSON.stringify(arrivals)) {
+    if (filtered.length !== arrivals.length) {
       dispatch(filtersActions.setFilteredArrivals(filtered));
       dispatch(filtersActions.setIsFiltered(true));
     } else {
       dispatch(filtersActions.setIsFiltered(false));
     }
   }, [arrivals, dispatch, filters]);
-
   return (
     <div className={cls.FilterArrivals}>
-      {/* <label>Type:</label> */}
       <FilterDropdown
+        filterTitle="Transport type"
         values={filterParameters.types}
         selectValue={filters.type ?? ""}
         onSelect={(value) => {
@@ -80,8 +79,8 @@ export const FilterArrivals = () => {
           } else dispatch(filtersActions.setFilters({ ...filters, type: value }));
         }}
       />
-      {/* <label>Route Number:</label> */}
       <FilterDropdown
+        filterTitle="Route number"
         selectValue={filters.routeNumber ?? ""}
         values={filterParameters.routeNumbers}
         onSelect={(value) => {
@@ -92,6 +91,7 @@ export const FilterArrivals = () => {
       />
       {/* <label>Destination:</label> */}
       <FilterDropdown
+        filterTitle="Destination"
         selectValue={filters.destination ?? ""}
         values={filterParameters.destinations}
         onSelect={(value) => {

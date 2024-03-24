@@ -26,6 +26,11 @@ export const filterArrilavsSlice = createSlice({
     setFilteredArrivals: (state, action: PayloadAction<Arrivals>) => {
       state.filteredArrivals = action.payload;
     },
+    resetFilters: (state) => {
+      state.arrivalsFilters = initialState.arrivalsFilters;
+      state.intervalArrivals = initialState.intervalArrivals;
+      state.filteredArrivals = initialState.filteredArrivals;
+    },
   },
 });
 export const { actions: filtersActions, reducer: filtersReducer } = filterArrilavsSlice;

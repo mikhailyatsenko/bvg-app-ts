@@ -8,12 +8,18 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CardWithStopName } from "entities/CardWithStopName";
 import cls from "./Stops.module.scss";
+import { filtersActions } from "features/Filters/model/slice/filterSlice";
 
 export const Stops: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const stopsToRender = useSelector(getStopsToRender);
   const searchValue = useSelector(getSearchValue);
+
+  useEffect(() => {
+    dispatch(stopsActions.resetSelectedStop());
+    dispatch(filtersActions.resetFilters());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(

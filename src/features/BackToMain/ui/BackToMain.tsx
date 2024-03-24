@@ -6,5 +6,5 @@ export const BackToMain = () => {
   function goToMain() {
     navigate("/");
   }
-  return <div onClick={goToMain} className={cls.BackToMain}></div>;
+  return <button onClick={goToMain} className={cls.BackToMain}></button>;
 };

@@ -22,7 +22,6 @@ const ToastMessage = ({ message }: ToastMessageProps) => {
       };
     }
   }, [message]);
-  console.log(message);
   return createPortal(
     <div className={`${cls.ToastMessage} ${isVisible ? cls.show : ""}`}>
       <div className="toast-content">{message}</div>

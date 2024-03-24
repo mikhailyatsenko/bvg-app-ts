@@ -1,4 +1,13 @@
 .FilterArrivals {
   display: flex;
   justify-content: center;
+  align-items: end;
+  max-width: 560px;
+  width: 100%;
+  @media (max-width: 576px) {
+    margin: 0 10px;
+  }
+  @media (max-width: 376px) {
+    margin: 0 4px;
+  }
 }
