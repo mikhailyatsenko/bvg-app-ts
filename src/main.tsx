@@ -6,7 +6,7 @@ import { StoreProvider } from "app/providers/StoreProvider/index.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StoreProvider>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.DEV ? "/" : "/bvg-app-ts/"}>
       <App />
     </BrowserRouter>
   </StoreProvider>
