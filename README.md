@@ -1,30 +1,18 @@
-# React + TypeScript + Vite
+# Public Transport Arrival Time Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This is a web application designed for viewing real-time arrival times of public transport at stops in Berlin and Brandenburg. Users can filter results by transport type, destination, and route number. Additionally, frequently used stops can be added to favorites, which are stored in local storage for convenience.
 
-Currently, two official plugins are available:
+## Technologies Used
+- Vite
+- React
+- TypeScript
+- Redux Toolkit
+- React-router
+- SCSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Architecture
+The application follows the "Feature-Sliced Design" methodology. For more information on Feature-Sliced Design, visit [feature-sliced.design](https://feature-sliced.design/).
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Deployment
+The application is deployed on GitHub Pages. You can access it [here](https://mikhailyatsenko.github.io/bvg-app-ts/).
