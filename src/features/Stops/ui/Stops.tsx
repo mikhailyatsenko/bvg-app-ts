@@ -3,22 +3,25 @@ import { stopsActions, type Stop } from "..";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { getStopsToRender } from "..";
-import { getSearchValue } from "features/StopSearch";
+import { getSearchValue, stopSearchActions } from "features/StopSearch";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CardWithStopName } from "entities/CardWithStopName";
 import cls from "./Stops.module.scss";
 import { filtersActions } from "features/Filters/model/slice/filterSlice";
+import { getFavoritesStops } from "features/AddToFavorites/model/selectors/getFavoritesStops/getFavoritesStops";
 
 export const Stops: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const stopsToRender = useSelector(getStopsToRender);
   const searchValue = useSelector(getSearchValue);
+  const favoritesStops = useSelector(getFavoritesStops);
 
   useEffect(() => {
     dispatch(stopsActions.resetSelectedStop());
     dispatch(filtersActions.resetFilters());
+    dispatch(stopSearchActions.setSearchValue(""));
   }, [dispatch]);
 
   useEffect(() => {
@@ -39,6 +42,11 @@ export const Stops: React.FC = () => {
 
   return (
     <div className={cls.Stops}>
+      {favoritesStops.length
+        ? favoritesStops.map((stop) => (
+            <CardWithStopName isFav={true} key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
+          ))
+        : ""}
       {stopsToRender.map((stop) => (
         <CardWithStopName key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
       ))}

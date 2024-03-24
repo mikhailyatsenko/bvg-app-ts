@@ -4,12 +4,13 @@ import cls from "./CardWithStopName.module.scss";
 interface CardWithStopNameProps {
   stop: Stop;
   selectStopHandler: (selectedStop: Stop) => void;
+  isFav?: boolean;
 }
 
-export const CardWithStopName = ({ selectStopHandler, stop }: CardWithStopNameProps) => {
+export const CardWithStopName = ({ selectStopHandler, stop, isFav }: CardWithStopNameProps) => {
   return (
     <div
-      className={cls.CardWithStopName}
+      className={`${cls.CardWithStopName} ${isFav ? cls.favorite : ""}`}
       key={stop.id}
       onClick={() => {
         selectStopHandler({ id: stop.id, name: stop.name });

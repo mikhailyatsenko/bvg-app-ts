@@ -1,0 +1,22 @@
+.Navbar {
+  background-color: #fff;
+  width: 100%;
+  box-shadow: 0 1px 4px rgb(146 161 176 / 15%);
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+}
+
+.Navbar .menuItems {
+  display: flex;
+}
+
+.navContainer {
+  display: block;
+  position: relative;
+  height: 60px;
+}

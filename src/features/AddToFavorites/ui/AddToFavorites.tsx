@@ -21,9 +21,5 @@ export const AddToFavorites: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(addToFavoritesActions.initializeFavorites());
-  }, [dispatch]);
-
   return <AddToFavButton handleFavoriteToggle={handleFavoriteToggle} isFavorite={isFavorite} />;
 };

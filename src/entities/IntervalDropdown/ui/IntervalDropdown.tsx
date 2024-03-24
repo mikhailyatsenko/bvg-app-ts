@@ -10,7 +10,7 @@ export const IntervalDropdown = ({ onSelect, selectValue, values }: IntervalArri
   return (
     <div className={cls.IntervalDropdown}>
       <div>Arrivals in nearest:</div>
-      <label className={cls.intervalLabel}>
+      <div className={cls.selectWrapper}>
         <select
           value={selectValue}
           onChange={(e) => {
@@ -23,7 +23,8 @@ export const IntervalDropdown = ({ onSelect, selectValue, values }: IntervalArri
             </option>
           ))}
         </select>
-      </label>
+      </div>
+
       <div>minutes</div>
     </div>
   );

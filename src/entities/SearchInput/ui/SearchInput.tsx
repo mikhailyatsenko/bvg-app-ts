@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import cls from "./SearchInput.module.scss";
 
 interface SearchInputProps {
   searchValue: string;
@@ -11,19 +12,23 @@ export const SearchInput = ({ onChangeInput, searchValue }: SearchInputProps) =>
     if (inputRef.current) inputRef.current.focus();
   });
   return (
-    <input
-      ref={inputRef}
-      className={
-        "search-form__input" +
-        // selectedStop &&
-        " search-form__input--small"
-      }
-      type="text"
-      value={searchValue}
-      placeholder="type stop name here..."
-      onChange={(e) => {
-        onChangeInput(e);
-      }}
-    />
+    <div className={`${cls.form__group}`}>
+      <input
+        type="input"
+        className={cls.formField}
+        placeholder="Name"
+        name="name"
+        id="name"
+        autoComplete="off"
+        ref={inputRef}
+        value={searchValue}
+        onChange={(e) => {
+          onChangeInput(e);
+        }}
+      />
+      <label htmlFor="name" className={cls.formLabel}>
+        Type here to serch station
+      </label>
+    </div>
   );
 };

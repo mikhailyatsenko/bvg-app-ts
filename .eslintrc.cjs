@@ -44,7 +44,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/strict-boolean-expressions": [
       "error",
-      { allowString: true, allowNullableString: true, allowNullableObject: true },
+      { allowString: true, allowNullableString: true, allowNullableObject: true, allowNullableBoolean: true },
     ],
     "@typescript-eslint/no-unused-vars": "warn",
   },

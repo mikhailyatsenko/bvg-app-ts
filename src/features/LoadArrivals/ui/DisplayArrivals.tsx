@@ -71,10 +71,7 @@ export const DisplayArrivals: React.FC = () => {
 
   return (
     <section className={cls.DisplayArrivals}>
-      <h3 className={cls.stopName}>
-        name
-        {/* {stopName} */}
-      </h3>
+      <h3 className={cls.stopName}>{stopName}</h3>
       <SetIntervalArrivals />
       {isLoading ? (
         <Loader />
