@@ -2,6 +2,8 @@ import { addToFavoritesActions } from "features/AddToFavorites/model/slice/addTo
 import { useEffect } from "react";
 import AppRouter from "./providers/router/AppRouter";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
+import { Navbar } from "widgets/Navbar";
+import "./App.scss";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -11,7 +13,12 @@ function App() {
 
   return (
     <>
-      <AppRouter />
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <AppRouter />
+      </main>
     </>
   );
 }

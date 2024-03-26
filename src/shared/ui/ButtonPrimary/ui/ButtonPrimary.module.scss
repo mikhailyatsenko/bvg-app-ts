@@ -1,0 +1,17 @@
+.ButtonPrimary {
+  color: #787878;
+  padding: 10px;
+  margin: 6px;
+  cursor: pointer;
+  border: 1px solid #787878;
+  border-radius: 4px;
+  &:hover {
+    color: black;
+    border: 1px solid black;
+    transform: scale(0.98);
+  }
+  &.xl {
+    font-size: 18px;
+    padding: 20px;
+  }
+}
