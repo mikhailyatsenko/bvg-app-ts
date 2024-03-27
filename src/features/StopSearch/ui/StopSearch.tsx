@@ -4,7 +4,11 @@ import { getSearchValue, stopSearchActions } from "..";
 import { SearchInput } from "entities/SearchInput";
 import cls from "./StopSearch.module.scss";
 
-export const StopSearch = () => {
+interface StopSearchProps {
+  isStopsInView: boolean;
+}
+
+export const StopSearch = ({ isStopsInView }: StopSearchProps) => {
   const dispatch = useAppDispatch();
 
   const searchValue = useSelector(getSearchValue);
@@ -14,7 +18,7 @@ export const StopSearch = () => {
   };
   return (
     <div className={cls.StopSearch}>
-      <SearchInput onChangeInput={onChangeInput} searchValue={searchValue} />
+      <SearchInput isStopsInView={isStopsInView} onChangeInput={onChangeInput} searchValue={searchValue} />
     </div>
   );
 };

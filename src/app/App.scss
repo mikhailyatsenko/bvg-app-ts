@@ -26,18 +26,6 @@ body {
 
 main {
   position: relative;
-  height: calc(100vh - 70px);
-  width: 100%;
-  scroll-behavior: smooth;
-  overflow: auto;
-  scroll-snap-type: y mandatory;
-}
-
-section {
-  width: 100%;
-  height: calc(100vh - 70px);
-  background-size: cover;
-  scroll-snap-align: start;
 }
 
 .break-flex {

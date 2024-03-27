@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
 import App from "./app/App.tsx";
-import "./index.scss";
 import { HashRouter } from "react-router-dom";
 import { StoreProvider } from "app/providers/StoreProvider/index.ts";
 

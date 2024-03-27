@@ -2,17 +2,21 @@ import { ButtonPrimary } from "shared/ui/ButtonPrimary";
 import cls from "./HeroSection.module.scss";
 import { ScrollDown } from "shared/ui/ScrollDown/ScrollDown";
 
-export const HeroSection = () => {
+interface HeroSectionProps {
+  scrollStopsSection: () => void;
+}
+
+export const HeroSection = ({ scrollStopsSection }: HeroSectionProps) => {
   return (
-    <section id={cls.hero}>
+    <div className={cls.hero}>
       <div className={cls.text}>
         Find public transport arrivals at any stop in <span>Berlin</span> and <span>Brandenburg</span>
       </div>
       {/* <div className="break-flex"></div> */}
-      <ButtonPrimary clickHandler={() => {}} size="xl">
+      <ButtonPrimary clickHandler={scrollStopsSection} size="xl">
         Go to search
       </ButtonPrimary>
-      <ScrollDown clickHandler={() => {}} />
-    </section>
+      <ScrollDown clickHandler={scrollStopsSection} />
+    </div>
   );
 };
