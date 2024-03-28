@@ -8,6 +8,7 @@ import { ResultTab } from "entities/ResultTab";
 import { type Stop, getStopsToRender, stopsActions } from "features/Stops";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { DisplayFavoritesStops } from "features/DisplayFavoritesStops";
 
 export const StopSearch = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ export const StopSearch = () => {
     <div className={cls.StopSearch}>
       <SearchInput onChangeInput={onChangeInput} searchValue={searchValue} />
       <ResultTab onSelect={selectStopHandler} isActive={Boolean(searchValue)} stopsArray={stopsToRender} />
+      <DisplayFavoritesStops />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { getStopsToRender } from "..";
 import { getSearchValue, stopSearchActions } from "features/StopSearch";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ButtonWithStop } from "entities/ButtonWithStop";
+import { ButtonWithFavStop } from "entities/ButtonWithFavStop";
 import cls from "./Stops.module.scss";
 import { filtersActions } from "features/Filters/model/slice/filterSlice";
 import { getFavoritesStops } from "features/AddToFavorites/model/selectors/getFavoritesStops/getFavoritesStops";
@@ -44,11 +44,11 @@ export const Stops: React.FC = () => {
     <div className={cls.Stops}>
       {favoritesStops.length
         ? favoritesStops.map((stop) => (
-            <ButtonWithStop isFav={true} key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
+            <ButtonWithFavStop isFav={true} key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
           ))
         : ""}
       {stopsToRender.map((stop) => (
-        <ButtonWithStop key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
+        <ButtonWithFavStop key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
       ))}
     </div>
   );

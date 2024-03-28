@@ -2,13 +2,14 @@ $primary: #000000;
 $secondary: #a7a7a7;
 $white: #fff;
 $gray: #9b9b9b;
+
 .form__group {
   position: relative;
   padding: 15px 0 0;
   margin: 10px auto;
-  max-width: 400px;
+  width: 400px;
   @media (max-width: 576px) {
-    max-width: 90%;
+    width: 90%;
   }
 }
 

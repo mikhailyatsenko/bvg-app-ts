@@ -1,13 +1,13 @@
 import { type Stop } from "features/Stops";
-import cls from "./ButtonWithStop.module.scss";
+import cls from "./ButtonWithFavStop.module.scss";
 
-interface ButtonWithStopProps {
+interface ButtonWithFavStopProps {
   stop: Stop;
   selectStopHandler: (selectedStop: Stop) => void;
   isFav?: boolean;
 }
 
-export const ButtonWithStop = ({ selectStopHandler, stop, isFav }: ButtonWithStopProps) => {
+export const ButtonWithFavStop = ({ selectStopHandler, stop, isFav }: ButtonWithFavStopProps) => {
   return (
     <div
       className={`${cls.CardWithStopName} ${isFav ? cls.favorite : ""}`}
