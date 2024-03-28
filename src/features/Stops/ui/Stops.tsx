@@ -31,7 +31,7 @@ export const Stops: React.FC = () => {
           .filter((stop) => {
             return stop.name.toLowerCase().includes(searchValue.toLowerCase());
           })
-          .slice(0, 100)
+          .slice(0, 10)
       )
     );
   }, [dispatch, searchValue]);
