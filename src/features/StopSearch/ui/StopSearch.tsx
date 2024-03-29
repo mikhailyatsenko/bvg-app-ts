@@ -40,7 +40,7 @@ export const StopSearch = () => {
     <div className={cls.StopSearch}>
       <SearchInput onChangeInput={onChangeInput} searchValue={searchValue} />
       <ResultTab onSelect={selectStopHandler} isActive={Boolean(searchValue)} stopsArray={stopsToRender} />
-      <DisplayFavoritesStops />
+      <DisplayFavoritesStops hide={Boolean(searchValue)} />
     </div>
   );
 };

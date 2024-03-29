@@ -1,5 +1,26 @@
 .DisplayFavoritesStops {
+  position: relative;
+  opacity: 1;
+  transition: 0.2s ease-in-out;
+
+  &.hide {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.FavoritesStopsList {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.title {
+  font-size: 16px;
+  text-align: center;
+  font-weight: 400;
+  color: #787878;
+  margin-bottom: 10px;
 }

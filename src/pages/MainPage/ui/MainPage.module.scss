@@ -1,9 +1,16 @@
 #container {
   height: calc(100vh - 70px);
   width: 100%;
+  padding: 0 40px;
   scroll-behavior: smooth;
   overflow: auto;
   scroll-snap-type: y mandatory;
+  @media (max-width: 576px) {
+    padding: 0 10px;
+  }
+  @media (min-width: 1400px) {
+    padding: 0 80px;
+  }
 }
 
 section {

@@ -3,6 +3,7 @@
   padding: 10px;
   margin: 6px;
   font-size: 14px;
+  user-select: none;
   cursor: pointer;
   border: 1px solid #787878;
   border-radius: 25px;
@@ -10,20 +11,20 @@
   &:hover {
     color: black;
     border: 1px solid black;
-    transform: scale(0.98);
+    transform: scale(0.97);
   }
   &.favorite {
     position: relative;
     &::after {
       position: absolute;
-      top: -12px;
+      top: -5px;
       right: 12px;
       content: "";
       background-image: url("../../../shared/assets/icons/favorite-filled.svg");
       background-repeat: no-repeat;
       background-size: 12px;
       background-position: center;
-      height: 24px;
+      height: 12px;
       width: 16px;
       background-color: #f4f4f4;
       z-index: 3;

@@ -5,19 +5,27 @@ import cls from "./DisplayFavoritesStops.module.scss";
 import { useNavigate } from "react-router-dom";
 import { type Stop } from "features/Stops";
 
-export const DisplayFavoritesStops = () => {
+interface DisplayFavoritesStopsProps {
+  hide: boolean;
+}
+
+export const DisplayFavoritesStops = ({ hide }: DisplayFavoritesStopsProps) => {
   const favoritesStops = useSelector(getFavoritesStops);
   const navigate = useNavigate();
   const selectStopHandler = (selectedStop: Stop): void => {
     navigate(`/arrivals?id=${selectedStop.id}`, { state: { stopName: selectedStop.name } });
   };
   return (
-    <div className={cls.DisplayFavoritesStops}>
-      {favoritesStops.length
-        ? favoritesStops.map((stop) => (
-            <ButtonWithFavStop isFav={true} key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
-          ))
-        : ""}
+    <div className={`${cls.DisplayFavoritesStops} ${hide ? cls.hide : ""}`}>
+      <h3 className={cls.title}>Stops that have been added to favorites:</h3>
+
+      <div className={cls.FavoritesStopsList}>
+        {favoritesStops.length
+          ? favoritesStops.map((stop) => (
+              <ButtonWithFavStop isFav={true} key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
+            ))
+          : ""}
+      </div>
     </div>
   );
 };
