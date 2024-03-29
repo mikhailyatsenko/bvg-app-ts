@@ -9,13 +9,19 @@ import { type Stop, getStopsToRender, stopsActions } from "features/Stops";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DisplayFavoritesStops } from "features/DisplayFavoritesStops";
+import { filtersActions } from "features/Filters/model/slice/filterSlice";
 
 export const StopSearch = () => {
   const dispatch = useAppDispatch();
   const searchValue = useSelector(getSearchValue);
   const stopsToRender = useSelector(getStopsToRender);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(stopsActions.resetSelectedStop());
+    dispatch(filtersActions.resetFilters());
+    dispatch(stopSearchActions.setSearchValue(""));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(

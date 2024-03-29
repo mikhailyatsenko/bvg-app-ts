@@ -1,10 +1,18 @@
 #container {
+  position: relative;
+  top: 0;
   height: calc(100vh - 70px);
   width: 100%;
   padding: 0 40px;
+  background-color: #f4f4f4;
   scroll-behavior: smooth;
   overflow: auto;
   scroll-snap-type: y mandatory;
+  transition: 0.3s;
+  &.scrolled {
+    top: -70px;
+  }
+
   @media (max-width: 576px) {
     padding: 0 10px;
   }
@@ -18,4 +26,8 @@ section {
   height: calc(100vh - 70px);
   background-size: cover;
   scroll-snap-align: start;
+}
+
+.navbar {
+  display: none;
 }
