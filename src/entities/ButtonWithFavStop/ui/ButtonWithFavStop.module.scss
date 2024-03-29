@@ -2,6 +2,7 @@
   color: #787878;
   padding: 10px;
   margin: 6px;
+  font-size: 14px;
   cursor: pointer;
   border: 1px solid #787878;
   border-radius: 25px;
@@ -13,19 +14,20 @@
   }
   &.favorite {
     position: relative;
-    border: 1px solid #f15bb5;
     &::after {
       position: absolute;
-      top: -10px;
-      right: 10px;
-      content: "♥";
-      text-align: center;
-      font-size: 16px;
-      color: #f15bb5;
-      height: 12px;
+      top: -12px;
+      right: 12px;
+      content: "";
+      background-image: url("../../../shared/assets/icons/favorite-filled.svg");
+      background-repeat: no-repeat;
+      background-size: 12px;
+      background-position: center;
+      height: 24px;
       width: 16px;
       background-color: #f4f4f4;
       z-index: 3;
+      color: #f15bb5;
     }
   }
 }
