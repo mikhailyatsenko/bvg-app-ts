@@ -4,7 +4,7 @@
   transition: 0.2s ease-in-out;
 
   &.hide {
-    opacity: 0;
+    height: 0;
     transform: scale(0);
   }
 }
@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  max-height: 400px;
+  max-height: 300px;
   overflow-y: scroll;
 }
 

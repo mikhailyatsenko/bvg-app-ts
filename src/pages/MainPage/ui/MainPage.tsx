@@ -18,11 +18,15 @@ const MainPage = () => {
 
   useEffect(() => {
     const container = containerRef.current;
+
     const handleScroll = () => {
       if (container) {
         setIsAtTop(container.scrollTop < 70);
       }
     };
+
+    handleScroll();
+
     if (container) {
       container.addEventListener("scroll", handleScroll);
     }
