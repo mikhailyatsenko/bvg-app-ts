@@ -1,3 +1,17 @@
+.MainPage {
+  width: 100%;
+  padding: 0 40px;
+  background-color: #f4f4f4;
+  transition: 0.3s;
+
+  @media (max-width: 576px) {
+    padding: 0 10px;
+  }
+  @media (min-width: 1400px) {
+    padding: 0 80px;
+  }
+}
+
 #hero {
   height: calc(100vh - 70px);
 }
