@@ -14,14 +14,14 @@ const MainPage = () => {
   };
 
   return (
-    <>
+    <div className={cls.MainPage}>
       <section id={cls.hero}>
         <HeroSection scrollToStopsSection={scrollToStopsSection} />
       </section>
       <section ref={stopsSectionRef} id={cls.stops}>
         <StopSearch />
       </section>
-    </>
+    </div>
   );
 };
 

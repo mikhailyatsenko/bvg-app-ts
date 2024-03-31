@@ -1,0 +1,26 @@
+.AboutPage {
+  height: calc(100vh - 140px);
+  width: 100%;
+  padding: 0 40px;
+  background-color: #f4f4f4;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 576px) {
+    padding: 0 40px;
+  }
+  @media (min-width: 1400px) {
+    padding: 0 80px;
+  }
+}
+
+.text {
+  text-align: center;
+  h1 {
+    margin-bottom: 20px;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+}

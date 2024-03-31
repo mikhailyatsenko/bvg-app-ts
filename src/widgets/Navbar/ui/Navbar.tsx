@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import cls from "./Navbar.module.scss";
 import { Logo } from "shared/ui/Logo";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setIsBurgerActive(false);
@@ -16,6 +18,10 @@ export const Navbar = () => {
     };
   }, []);
 
+  function menuItemClickHandler(route: string) {
+    navigate(`/${route}`);
+  }
+
   return (
     <nav className={cls.navbar}>
       <a href="#" className={cls.logo}>
@@ -27,9 +33,30 @@ export const Navbar = () => {
         }}
         className={`${cls.navMenu} ${isBurgerActive ? cls.active : ""}`}
       >
-        <li className={cls.navItem}>Home</li>
-        <li className={cls.navItem}>About</li>
-        <li className={cls.navItem}>Contact</li>
+        <li
+          onClick={() => {
+            menuItemClickHandler("/");
+          }}
+          className={cls.navItem}
+        >
+          Home
+        </li>
+        <li
+          onClick={() => {
+            menuItemClickHandler("about");
+          }}
+          className={cls.navItem}
+        >
+          About
+        </li>
+        <li
+          onClick={() => {
+            menuItemClickHandler("contacts");
+          }}
+          className={cls.navItem}
+        >
+          Contact
+        </li>
       </ul>
       <div
         onClick={() => {
