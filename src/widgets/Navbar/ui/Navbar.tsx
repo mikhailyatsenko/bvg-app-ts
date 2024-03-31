@@ -19,14 +19,19 @@ export const Navbar = () => {
   }, []);
 
   function menuItemClickHandler(route: string) {
-    navigate(`/${route}`);
+    navigate(`${route}`);
   }
 
   return (
     <nav className={cls.navbar}>
-      <a href="#" className={cls.logo}>
+      <div
+        onClick={() => {
+          menuItemClickHandler("/");
+        }}
+        className={cls.logo}
+      >
         <Logo />
-      </a>
+      </div>
       <ul
         onClick={() => {
           setIsBurgerActive(false);
