@@ -23,7 +23,7 @@ const MainPage = () => {
         const isScrollingDown = scrollTop > lastScrollTop;
 
         if (top <= window.innerHeight - 100 && isScrollingDown) {
-          window.scrollTo({ top: window.scrollY + top, behavior: "auto" });
+          scrollToStopsSection();
         }
       }
       lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
