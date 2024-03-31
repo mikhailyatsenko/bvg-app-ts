@@ -8,6 +8,7 @@
   scroll-behavior: smooth;
   overflow: auto;
   scroll-snap-type: y mandatory;
+  scroll-padding-bottom: 70px;
   transition: 0.3s;
 
   &.scrolled {

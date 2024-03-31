@@ -37,8 +37,6 @@ const MainPage = () => {
     };
   }, []);
 
-  console.log(isAtTop);
-
   return (
     <div ref={containerRef} className={`${isAtTop ? "" : cls.scrolled}`} id={cls.container}>
       <section id="hero">

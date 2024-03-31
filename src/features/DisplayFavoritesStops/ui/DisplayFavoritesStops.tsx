@@ -15,17 +15,17 @@ export const DisplayFavoritesStops = ({ hide }: DisplayFavoritesStopsProps) => {
   const selectStopHandler = (selectedStop: Stop): void => {
     navigate(`/arrivals?id=${selectedStop.id}`, { state: { stopName: selectedStop.name } });
   };
-  return (
+  return favoritesStops.length ? (
     <div className={`${cls.DisplayFavoritesStops} ${hide ? cls.hide : ""}`}>
       <h3 className={cls.title}>Stops that have been added to favorites:</h3>
 
       <div className={cls.FavoritesStopsList}>
-        {favoritesStops.length
-          ? favoritesStops.map((stop) => (
-              <ButtonWithFavStop isFav={true} key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
-            ))
-          : ""}
+        {favoritesStops.map((stop) => (
+          <ButtonWithFavStop isFav={true} key={stop.id} selectStopHandler={selectStopHandler} stop={stop} />
+        ))}
       </div>
     </div>
+  ) : (
+    ""
   );
 };

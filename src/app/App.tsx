@@ -4,6 +4,7 @@ import AppRouter from "./providers/router/AppRouter";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { Navbar } from "widgets/Navbar";
 import "./App.scss";
+import { Footer } from "entities/Footer";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -19,6 +20,9 @@ function App() {
       <main>
         <AppRouter />
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }
