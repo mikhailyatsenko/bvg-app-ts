@@ -22,10 +22,24 @@ body {
   font-weight: 300;
   font-style: normal;
   font-variation-settings: "wdth" 100;
+  scroll-behavior: smooth;
+  overflow: auto;
+  scroll-snap-type: y mandatory;
 }
 
 main {
   position: relative;
+  width: 100%;
+  padding: 0 40px;
+  background-color: #f4f4f4;
+  transition: 0.3s;
+
+  @media (max-width: 576px) {
+    padding: 0 10px;
+  }
+  @media (min-width: 1400px) {
+    padding: 0 80px;
+  }
 }
 
 .break-flex {

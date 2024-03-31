@@ -1,9 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cls from "./Navbar.module.scss";
 import { Logo } from "shared/ui/Logo";
 
 export const Navbar = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setIsBurgerActive(false);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", () => {
+        setIsBurgerActive(false);
+      });
+    };
+  }, []);
+
   return (
     <nav className={cls.navbar}>
       <a href="#" className={cls.logo}>

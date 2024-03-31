@@ -9,21 +9,19 @@
 }
 
 .text {
+  font-size: 3vw; /* Размер текста по ширине экрана */
   text-align: center;
-  font-size: 48px;
   line-height: 1.5;
   font-weight: 600;
-  width: 60%;
   margin-bottom: 20px;
   span {
     font-weight: 700;
   }
-  @media (max-width: 767px) {
-    font-size: 38px;
-    width: 80%;
+  @media screen and (max-width: 768px) {
+    font-size: 5vw; /* На устройствах с шириной экрана до 768px, увеличиваем размер текста */
   }
-  @media (max-width: 376px) {
-    font-size: 32px;
-    width: 90%;
+
+  @media screen and (orientation: landscape) {
+    font-size: 2.5vw; /* В горизонтальной ориентации уменьшаем размер текста */
   }
 }
