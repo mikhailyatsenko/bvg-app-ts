@@ -10,10 +10,9 @@ export const AboutPage = () => {
             This is a web application designed for viewing real-time arrival times of public transport at stops in
             Berlin and Brandenburg.
           </p>
-          <p>Users can filter results by transport type, destination, and route number.</p>
           <p>
-            Additionally, frequently used stops can be added to favorites, which are stored in local storage for
-            convenience.
+            This application retrieves data from the public API <strong>v6.bvg.transport.rest</strong>. While app strive
+            to provide accurate information, please note that occasional discrepancies may occur.
           </p>
         </div>
       </section>

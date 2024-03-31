@@ -10,7 +10,7 @@ export const HeroSection = ({ scrollToStopsSection }: HeroSectionProps) => {
   return (
     <div className={cls.hero}>
       <div className={cls.text}>
-        Find public transport arrivals at any stop in <span>Berlin</span> and <span>Brandenburg</span>
+        Find public transport arrivals at any stop in <strong>Berlin</strong> and <strong>Brandenburg</strong>
       </div>
       {/* <div className="break-flex"></div> */}
       <ButtonPrimary clickHandler={scrollToStopsSection} size="xl">
