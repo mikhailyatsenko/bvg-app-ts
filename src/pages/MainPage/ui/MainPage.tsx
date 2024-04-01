@@ -1,11 +1,13 @@
-import { StopSearch } from "features/StopSearch";
+import { StopSearch, getSearchValue } from "features/StopSearch";
 import { HeroSection } from "widgets/HeroSection";
 import cls from "./MainPage.module.scss";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 const MainPage = () => {
   const stopsSectionRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const searchValue = useSelector(getSearchValue);
 
   const scrollToStopsSection = () => {
     const stopSection = stopsSectionRef.current;
@@ -24,7 +26,7 @@ const MainPage = () => {
         const { top } = stopSection.getBoundingClientRect();
         const isScrollingDown = scrollTop > lastScrollTop;
 
-        if (top <= window.innerHeight - 100 && isScrollingDown && !isScrolled) {
+        if (top <= window.innerHeight - 70 && isScrollingDown && !isScrolled) {
           setIsScrolled(true);
           requestAnimationFrame(() => {
             window.scrollTo({ top: window.scrollY + top, behavior: "smooth" });
@@ -42,6 +44,10 @@ const MainPage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [isScrolled]);
+
+  useEffect(() => {
+    if (searchValue) scrollToStopsSection();
+  }, [searchValue]);
 
   return (
     <div className={cls.MainPage}>
