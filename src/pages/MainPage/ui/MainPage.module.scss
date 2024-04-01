@@ -14,8 +14,15 @@
 
 #hero {
   height: calc(100vh - 70px);
+  max-height: calc(100dvh - 70px);
 }
 
 #stops {
   min-height: 100vh;
+}
+
+@supports (min-height: 100dvh) {
+  #stops {
+    min-height: 100dvh;
+  }
 }

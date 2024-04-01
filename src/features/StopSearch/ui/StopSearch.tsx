@@ -43,7 +43,7 @@ export const StopSearch = () => {
     dispatch(stopSearchActions.setSearchValue(e.target.value));
   };
   return (
-    <div className={cls.StopSearch}>
+    <div className={`${cls.StopSearch} ${searchValue ? cls.inputValue : ""}`}>
       <SearchInput onChangeInput={onChangeInput} searchValue={searchValue} />
       <ResultTab onSelect={selectStopHandler} isActive={Boolean(searchValue)} stopsArray={stopsToRender} />
       <DisplayFavoritesStops hide={Boolean(searchValue)} />
