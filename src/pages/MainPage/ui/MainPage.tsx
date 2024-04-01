@@ -1,14 +1,16 @@
 import { StopSearch } from "features/StopSearch";
 import { HeroSection } from "widgets/HeroSection";
 import cls from "./MainPage.module.scss";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const MainPage = () => {
   const stopsSectionRef = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const scrollToStopsSection = () => {
     const stopSection = stopsSectionRef.current;
     if (stopSection) {
+      setIsScrolled(true);
       stopSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
@@ -22,8 +24,14 @@ const MainPage = () => {
         const { top } = stopSection.getBoundingClientRect();
         const isScrollingDown = scrollTop > lastScrollTop;
 
-        if (top <= window.innerHeight - 100 && isScrollingDown) {
-          scrollToStopsSection();
+        if (top <= window.innerHeight - 100 && isScrollingDown && !isScrolled) {
+          setIsScrolled(true);
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: window.scrollY + top, behavior: "smooth" });
+          });
+        }
+        if (!isScrollingDown) {
+          setIsScrolled(false);
         }
       }
       lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
@@ -33,7 +41,7 @@ const MainPage = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isScrolled]);
 
   return (
     <div className={cls.MainPage}>
