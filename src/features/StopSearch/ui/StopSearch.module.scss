@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  &.inputValue {
-    justify-content: start;
+  &.toTop {
+    @media (max-width: 576px) {
+      justify-content: start;
+    }
   }
 }
