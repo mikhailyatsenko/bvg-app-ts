@@ -5,6 +5,7 @@ import { fetchArrivals } from "../services/fetchArrivals";
 import { normalizeArrivals } from "../../utils/normalizeArrivals/normalizeArrivals";
 
 const initialState: ArrivalsSchema = {
+  selectedStop: { id: "", name: "" },
   isLoading: false,
   arrivals: [],
   error: "",
@@ -14,8 +15,14 @@ export const arrivalsSlice = createSlice({
   name: "arrivals",
   initialState,
   reducers: {
-    setArrivals: (state, action: PayloadAction<Arrival[]>) => {
-      state.arrivals = action.payload;
+    setSelectedStopName: (state, action: PayloadAction<string>) => {
+      state.selectedStop.name = action.payload;
+    },
+    setSelectedStopId: (state, action: PayloadAction<string>) => {
+      state.selectedStop.id = action.payload;
+    },
+    resetSelectedStop: (state) => {
+      state.selectedStop = initialState.selectedStop;
     },
   },
   extraReducers(builder) {

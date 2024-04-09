@@ -1,6 +1,6 @@
 import { AddToFavorites } from "features/AddToFavorites";
 import { BackToMain } from "features/BackToMain";
-import { DisplayArrivals } from "features/LoadArrivals";
+import { LoadArrivals } from "features/LoadArrivals";
 import { FiltersPanel } from "widgets/FiltersPanel";
 
 const ArrivalsPage = () => {
@@ -9,7 +9,7 @@ const ArrivalsPage = () => {
       <FiltersPanel />
       <BackToMain />
       <AddToFavorites />
-      <DisplayArrivals />
+      <LoadArrivals />
     </>
   );
 };

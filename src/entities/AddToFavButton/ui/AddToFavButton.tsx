@@ -2,7 +2,7 @@ import { useState } from "react";
 import cls from "./AddToFavButton.module.scss";
 import ToastMessage from "shared/ui/ToastMessage/ToastMessage";
 import { useSelector } from "react-redux";
-import { getSelectedStop } from "features/Stops";
+import { getSelectedStop } from "features/LoadArrivals";
 
 interface AddToFavButtonProps {
   handleFavoriteToggle: () => void;

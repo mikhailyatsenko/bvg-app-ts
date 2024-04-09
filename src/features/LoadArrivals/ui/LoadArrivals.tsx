@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { getArrivals, getIsLoading } from "features/LoadArrivals";
-import { getSelectedStop, stopsActions } from "features/Stops";
+import { getArrivals, getIsLoading, getSelectedStop, arrivalsActions } from "features/LoadArrivals";
+// import { getSelectedStop, arrivalsActions } from "features/Stops";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { useEffect, useState } from "react";
 import { fetchArrivals } from "features/LoadArrivals/model/services/fetchArrivals";
@@ -12,14 +12,14 @@ import { getIntervalArrivals } from "features/Filters/model/selectors/getInterva
 import { ArrivalsLine } from "entities/ArrivalsLine";
 import { Loader } from "shared/ui/Loader/Loader";
 import { calculateMinutesUntilArrival } from "../utils/calculateMinutesUntilArrival/calculateMinutesUntilArrival";
-import cls from "./DisplayArrivals.module.scss";
+import cls from "./LoadArrivals.module.scss";
 import { SetIntervalArrivals } from "features/Filters";
 
 interface LocationState {
   stopName?: string;
 }
 
-export const DisplayArrivals: React.FC = () => {
+export const LoadArrivals: React.FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const location = useLocation();
@@ -37,11 +37,11 @@ export const DisplayArrivals: React.FC = () => {
   useEffect(() => {
     if (stopId !== null) {
       if (stopName !== undefined) {
-        dispatch(stopsActions.setSelectedStopName(stopName));
+        dispatch(arrivalsActions.setSelectedStopName(stopName));
       } else {
-        dispatch(stopsActions.setSelectedStopName(getStopNameById(stopId)));
+        dispatch(arrivalsActions.setSelectedStopName(getStopNameById(stopId)));
       }
-      dispatch(stopsActions.setSelectedStopId(stopId));
+      dispatch(arrivalsActions.setSelectedStopId(stopId));
     }
   }, [dispatch, stopId, stopName]);
 
