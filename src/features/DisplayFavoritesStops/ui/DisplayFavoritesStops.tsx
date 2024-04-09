@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { getFavoritesStops } from "features/AddToFavorites/model/selectors/getFavoritesStops/getFavoritesStops";
 import cls from "./DisplayFavoritesStops.module.scss";
 import { useNavigate } from "react-router-dom";
-import { type Stop } from "features/Stops";
+import { type Stop } from "features/LoadArrivals";
 
 interface DisplayFavoritesStopsProps {
   hide: boolean;

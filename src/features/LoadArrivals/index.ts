@@ -1,4 +1,4 @@
-export { arrivalsActions, arrivalsReducer, arrivalsSlice } from "./model/slice/arrivalsSlice";
+export { arrivalsActions, arrivalsReducer } from "./model/slice/LoadArrivalsSlice";
 export type { Arrival, Arrivals, ArrivalsSchema, Stop } from "./model/types/ArrivalsSchema";
 
 export { getArrivals } from "./model/selectors/getArrivals/getArrivals";

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { type Arrival, type ArrivalsSchema } from "../types/ArrivalsSchema";
+import { type ArrivalsSchema } from "../types/ArrivalsSchema";
 import { type PayloadAction } from "@reduxjs/toolkit";
 import { fetchArrivals } from "../services/fetchArrivals";
 import { normalizeArrivals } from "../../utils/normalizeArrivals/normalizeArrivals";
@@ -11,7 +11,7 @@ const initialState: ArrivalsSchema = {
   error: "",
 };
 
-export const arrivalsSlice = createSlice({
+export const LoadArrivalsSlice = createSlice({
   name: "arrivals",
   initialState,
   reducers: {
@@ -41,4 +41,4 @@ export const arrivalsSlice = createSlice({
     });
   },
 });
-export const { actions: arrivalsActions, reducer: arrivalsReducer } = arrivalsSlice;
+export const { actions: arrivalsActions, reducer: arrivalsReducer } = LoadArrivalsSlice;

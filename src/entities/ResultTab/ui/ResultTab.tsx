@@ -1,4 +1,4 @@
-import { type Stop } from "features/Stops";
+import { type Stop } from "features/LoadArrivals";
 import cls from "./ResultTab.module.scss";
 
 interface ResultTabProps {
