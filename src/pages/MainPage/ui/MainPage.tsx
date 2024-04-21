@@ -1,61 +1,36 @@
-import { StopSearch, getSearchValue } from "features/StopSearch";
 import { HeroSection } from "widgets/HeroSection";
 import cls from "./MainPage.module.scss";
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
-  const stopsSectionRef = useRef<HTMLDivElement>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const searchValue = useSelector(getSearchValue);
+  const navigate = useNavigate();
 
-  const scrollToStopsSection = () => {
-    const stopSection = stopsSectionRef.current;
-    if (stopSection) {
-      setIsScrolled(true);
-      stopSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const toStopSearchSection = () => {
+    navigate("search");
   };
 
   useEffect(() => {
-    let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
+    const lastScrollTop = window.scrollY || document.documentElement.scrollTop;
     const handleScroll = () => {
-      const stopSection = stopsSectionRef.current;
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      if (stopSection) {
-        const { top } = stopSection.getBoundingClientRect();
-        const isScrollingDown = scrollTop > lastScrollTop;
 
-        if (top <= window.innerHeight - 70 && isScrollingDown && !isScrolled) {
-          setIsScrolled(true);
-          requestAnimationFrame(() => {
-            window.scrollTo({ top: window.scrollY + top, behavior: "smooth" });
-          });
-        }
-        if (!isScrollingDown) {
-          setIsScrolled(false);
-        }
+      const isScrollingDown = scrollTop > lastScrollTop;
+      if (isScrollingDown && scrollTop > 40) {
+        navigate("search");
       }
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isScrolled]);
-
-  useEffect(() => {
-    if (searchValue) scrollToStopsSection();
-  }, [searchValue]);
+  }, [navigate]);
 
   return (
     <div className={cls.MainPage}>
       <section id={cls.hero}>
-        <HeroSection scrollToStopsSection={scrollToStopsSection} />
-      </section>
-      <section ref={stopsSectionRef} id={cls.stops}>
-        <StopSearch />
+        <HeroSection toStopSearchSection={toStopSearchSection} />
       </section>
     </div>
   );

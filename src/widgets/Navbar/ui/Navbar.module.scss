@@ -1,7 +1,14 @@
 nav {
   background-color: #1e1e1e;
   & a {
+    cursor: pointer;
     text-decoration: none;
+    color: inherit;
+    padding: 0 12px;
+
+    &.active {
+      color: #f5bd43;
+    }
   }
   .logo {
     cursor: pointer;
@@ -42,12 +49,13 @@ li {
   background: #f4f4f4;
 }
 .navItem {
-  cursor: pointer;
-  color: #f4f4f4;
+  color: #e7e7e7;
   font-weight: 600;
-  padding: 0 1.5rem;
-  transition: 0.5s ease;
-  &:hover {
+  margin: 0 4px;
+  transition: color 0.5s ease;
+  &:hover,
+  &:active {
+    transform: scale(0.97);
     color: #ffffff;
   }
 }
@@ -72,6 +80,7 @@ li {
     position: fixed;
     right: -100%;
     top: 70px;
+    padding-bottom: 20px;
     flex-direction: column;
     width: 100%;
     text-align: center;
@@ -81,7 +90,12 @@ li {
   }
   .navItem {
     color: #1e1e1e;
-    padding: 1.5rem 0;
+    padding: 28px 0;
+    &:hover,
+    &:active {
+      transform: scale(0.97);
+      color: #919191;
+    }
   }
 
   .navMenu.active {

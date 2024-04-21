@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import cls from "./Navbar.module.scss";
 import { Logo } from "shared/ui/Logo";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Navbar = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
-  const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setIsBurgerActive(false);
@@ -18,49 +17,36 @@ export const Navbar = () => {
     };
   }, []);
 
-  function menuItemClickHandler(route: string) {
-    navigate(`${route}`);
-  }
-
   return (
     <nav className={cls.navbar}>
-      <div
-        onClick={() => {
-          menuItemClickHandler("/");
-        }}
-        className={cls.logo}
-      >
+      <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"/"}>
         <Logo />
-      </div>
+      </NavLink>
       <ul
         onClick={() => {
           setIsBurgerActive(false);
         }}
         className={`${cls.navMenu} ${isBurgerActive ? cls.active : ""}`}
       >
-        <li
-          onClick={() => {
-            menuItemClickHandler("/");
-          }}
-          className={cls.navItem}
-        >
-          Home
+        <li className={cls.navItem}>
+          <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"/"}>
+            Home
+          </NavLink>
         </li>
-        <li
-          onClick={() => {
-            menuItemClickHandler("about");
-          }}
-          className={cls.navItem}
-        >
-          About
+        <li className={cls.navItem}>
+          <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"search"}>
+            Search
+          </NavLink>
         </li>
-        <li
-          onClick={() => {
-            menuItemClickHandler("contacts");
-          }}
-          className={cls.navItem}
-        >
-          Contact
+        <li className={cls.navItem}>
+          <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"about"}>
+            About
+          </NavLink>
+        </li>
+        <li className={cls.navItem}>
+          <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"contacts"}>
+            Contacts
+          </NavLink>
         </li>
       </ul>
       <div
