@@ -1,5 +1,5 @@
 import { AddToFavorites } from "features/AddToFavorites";
-import { BackToMain } from "features/BackToMain";
+import { BackToSearch } from "features/BackToSearch";
 import { LoadArrivals } from "features/LoadArrivals";
 import { FiltersPanel } from "widgets/FiltersPanel";
 
@@ -7,7 +7,7 @@ const ArrivalsPage = () => {
   return (
     <>
       <FiltersPanel />
-      <BackToMain />
+      <BackToSearch />
       <AddToFavorites />
       <LoadArrivals />
     </>
