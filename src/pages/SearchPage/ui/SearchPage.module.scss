@@ -1,0 +1,25 @@
+.SearchPage {
+  position: relative;
+  animation: ease-out 0.5s scrollUp;
+}
+
+@supports (min-height: 100dvh) {
+  #stops {
+    min-height: 100dvh;
+  }
+}
+
+#search {
+  min-height: 100vh;
+}
+
+@keyframes scrollUp {
+  0% {
+    opacity: 0;
+    bottom: -120px;
+  }
+  100% {
+    opacity: 1;
+    bottom: 0;
+  }
+}

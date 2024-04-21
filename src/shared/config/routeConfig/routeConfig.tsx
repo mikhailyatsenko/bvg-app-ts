@@ -4,9 +4,11 @@ import { AboutPage } from "pages/AboutPage";
 import NotFoundPage from "pages/NotFoundPage/ui/NotFoundPage";
 import { type RouteProps } from "react-router-dom";
 import { ContactsPage } from "pages/ContactsPage";
+import { SearchPage } from "pages/SearchPage";
 
 export enum AppRoutes {
   MAIN = "main",
+  SEARCH = "search",
   ARRIVALS = "arrivals",
   ABOUT = "about",
   CONTACTS = "contacts",
@@ -15,6 +17,7 @@ export enum AppRoutes {
 
 export const RoutePaths: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: "/",
+  [AppRoutes.SEARCH]: "search",
   [AppRoutes.ARRIVALS]: "arrivals",
   [AppRoutes.ABOUT]: "about",
   [AppRoutes.CONTACTS]: "contacts",
@@ -25,6 +28,11 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
   [AppRoutes.MAIN]: {
     path: RoutePaths.main,
     element: <MainPage />,
+  },
+
+  [AppRoutes.SEARCH]: {
+    path: RoutePaths.search,
+    element: <SearchPage />,
   },
 
   [AppRoutes.ARRIVALS]: {
