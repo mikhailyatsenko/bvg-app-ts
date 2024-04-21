@@ -21,12 +21,7 @@
   word-break: break-word;
   text-align: center;
   padding: 20px 0;
-  /* &:first-child {
-  //   background:
-  //     // -webkit-linear-gradient(rgba(135, 60, 255, 1), rgba(135, 60, 255, 0) 0%),
-  //     -webkit-linear-gradient(-45deg, rgba(208, 208, 208, 0.9) 45%, rgb(255, 255, 255) 0%);
-  // }
-  */
+
   .routeNumberMobile {
     display: none;
     @media (width <= 480px) {
@@ -36,7 +31,7 @@
 }
 
 .routeNumberDesktop {
-  display: block;
+  display: inherit;
   @media (width <= 480px) {
     display: none;
   }
