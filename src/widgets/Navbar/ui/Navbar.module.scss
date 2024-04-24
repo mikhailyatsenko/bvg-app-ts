@@ -34,7 +34,6 @@ li {
 .navBranding {
   font-size: 2rem;
 }
-/* transition for links */
 
 .hamburger {
   display: none;
@@ -76,6 +75,15 @@ li {
   .hamburger.active .bar:nth-child(3) {
     transform: rotate(-45deg) translateY(-11.5px);
   }
+  .menuOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+  }
+
   .navMenu {
     position: fixed;
     right: -100%;

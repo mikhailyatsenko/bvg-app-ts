@@ -19,32 +19,61 @@ export const Navbar = () => {
 
   return (
     <nav className={cls.navbar}>
+      {isBurgerActive ? (
+        <div
+          onClick={() => {
+            setIsBurgerActive(false);
+          }}
+          className={cls.menuOverlay}
+        ></div>
+      ) : (
+        ""
+      )}
       <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"/"}>
         <Logo />
       </NavLink>
-      <ul
-        onClick={() => {
-          setIsBurgerActive(false);
-        }}
-        className={`${cls.navMenu} ${isBurgerActive ? cls.active : ""}`}
-      >
+      <ul className={`${cls.navMenu} ${isBurgerActive ? cls.active : ""}`}>
         <li className={cls.navItem}>
-          <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"/"}>
+          <NavLink
+            onClick={() => {
+              setIsBurgerActive(false);
+            }}
+            className={({ isActive }) => (isActive ? cls.active : "")}
+            to={"/"}
+          >
             Home
           </NavLink>
         </li>
         <li className={cls.navItem}>
-          <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"search"}>
+          <NavLink
+            onClick={() => {
+              setIsBurgerActive(false);
+            }}
+            className={({ isActive }) => (isActive ? cls.active : "")}
+            to={"search"}
+          >
             Search
           </NavLink>
         </li>
         <li className={cls.navItem}>
-          <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"about"}>
+          <NavLink
+            onClick={() => {
+              setIsBurgerActive(false);
+            }}
+            className={({ isActive }) => (isActive ? cls.active : "")}
+            to={"about"}
+          >
             About
           </NavLink>
         </li>
         <li className={cls.navItem}>
-          <NavLink className={({ isActive }) => (isActive ? cls.active : "")} to={"contacts"}>
+          <NavLink
+            onClick={() => {
+              setIsBurgerActive(false);
+            }}
+            className={({ isActive }) => (isActive ? cls.active : "")}
+            to={"contacts"}
+          >
             Contacts
           </NavLink>
         </li>
