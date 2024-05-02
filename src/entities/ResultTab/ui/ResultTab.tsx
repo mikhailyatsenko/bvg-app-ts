@@ -9,7 +9,7 @@ interface ResultTabProps {
 
 export const ResultTab = ({ stopsArray = [], isActive, onSelect }: ResultTabProps) => {
   return (
-    <div className={`${cls.resultTab} ${isActive ? cls.resultTabActive : ""}`}>
+    <div className={`${cls.resultTab} ${isActive ? cls.resultTabActive : ""}`} data-testid="result-tab">
       <div className={cls.ul}>
         {stopsArray.map((stop) => (
           <div

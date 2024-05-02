@@ -22,9 +22,14 @@ export const ArrivalsLine = ({ destination, remainingTime, routeNumber, time, tr
   return (
     <div className={cls.ArrivalsLine}>
       <div className={cls.lineItem}>
-        {transportType} <div className={cls.routeNumberMobile}>{routeNumber}</div>
+        {transportType}
+        <div className={cls.routeNumberMobile} data-testid="routeNumberMobile">
+          {routeNumber}
+        </div>
       </div>
-      <div className={`${cls.lineItem} ${cls.routeNumberDesktop}`}>{routeNumber}</div>
+      <div className={`${cls.lineItem} ${cls.routeNumberDesktop}`} data-testid="routeNumberDesktop">
+        {routeNumber}
+      </div>
       <div className={cls.lineItem}>{destination}</div>
       <div className={cls.lineItem}>{time.slice(11, 16)}</div>
       <div className={cls.lineItem}>{formatRemainingTime(remainingTime)}</div>
