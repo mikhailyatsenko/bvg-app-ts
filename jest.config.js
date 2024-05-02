@@ -7,6 +7,7 @@ export default {
     moduleNameMapper: {
       "\\.(css|less|sass|scss)$": "identity-obj-proxy",
       "^.+\\.svg$": "jest-transformer-svg",
+      '\\.(css|less)$': 'identity-obj-proxy',
     },
   
     setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
