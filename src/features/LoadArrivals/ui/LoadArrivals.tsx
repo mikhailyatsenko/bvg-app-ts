@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { getArrivals, getIsLoading, getSelectedStop, arrivalsActions } from "features/LoadArrivals";
-// import { getSelectedStop, arrivalsActions } from "features/Stops";
 import { useAppDispatch } from "shared/lib/hooks/useAppDispatch/useAppDispatch";
 import { useEffect, useState } from "react";
 import { fetchArrivals } from "features/LoadArrivals/model/services/fetchArrivals";
@@ -39,7 +38,7 @@ export const LoadArrivals: React.FC = () => {
       if (stopName !== undefined) {
         dispatch(arrivalsActions.setSelectedStopName(stopName));
       } else {
-        dispatch(arrivalsActions.setSelectedStopName(getStopNameById(stopId)));
+         dispatch(arrivalsActions.setSelectedStopName(getStopNameById(stopId)));
       }
       dispatch(arrivalsActions.setSelectedStopId(stopId));
     }
@@ -72,7 +71,7 @@ export const LoadArrivals: React.FC = () => {
 
   return (
     <section className={cls.DisplayArrivals}>
-      <h3 className={cls.stopName}>{stopName}</h3>
+      <h3 className={cls.stopName}>{selectedStop.name}</h3>
       <SetIntervalArrivals />
       {isLoading ? (
         <Loader />

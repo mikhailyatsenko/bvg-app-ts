@@ -16,7 +16,6 @@ export type TransportType = TransportTypeMap[TransportTypeKey];
 
 export const normalizeArrivals = (arrivalsData: ArivalsRawData): Arrivals => {
   const normalizedArrivals: Arrivals = [];
-  console.log("Дата", arrivalsData);
 
   arrivalsData.arrivals.forEach((arrival) => {
     const {
@@ -34,7 +33,7 @@ export const normalizeArrivals = (arrivalsData: ArivalsRawData): Arrivals => {
       destination: provenance,
     });
   });
-  
+
   normalizedArrivals.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
 
   return normalizedArrivals;

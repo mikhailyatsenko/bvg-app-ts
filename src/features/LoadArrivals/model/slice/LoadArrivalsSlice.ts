@@ -16,6 +16,7 @@ export const LoadArrivalsSlice = createSlice({
   initialState,
   reducers: {
     setSelectedStopName: (state, action: PayloadAction<string>) => {
+      console.log(action.payload, "пэйлоад");
       state.selectedStop.name = action.payload;
     },
     setSelectedStopId: (state, action: PayloadAction<string>) => {
