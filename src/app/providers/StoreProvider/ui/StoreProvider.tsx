@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import { type ReactNode } from "react";
-import { createReduxStore } from "../index";
+import { createReduxStore } from "../config/store";
 import { type StateSchema } from "../config/StateSchema";
 
 interface StoreProviderProps {
